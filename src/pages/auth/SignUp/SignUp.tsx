@@ -98,7 +98,7 @@ const SignUp = () => {
               Mobile Number
             </label>
             <PhoneInput
-              country={"eg"}
+              country={"us"}
               enableSearch={true}
               value={phone}
               onChange={(phone) => setPhone(phone)}
