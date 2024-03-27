@@ -1,0 +1,13 @@
+.phone-input-container {
+  border-bottom: 2px solid;
+  transition: border-width 0.3s; /* Add transition for smooth effect */
+}
+
+.phone-input-container:hover {
+  border-bottom-width: 4px; /* Increase border width on hover */
+}
+
+.custom-input:focus {
+  border: none;
+  /* add any other focus styles you want */
+}
