@@ -49,7 +49,10 @@ const SignUp = () => {
 
   return (
     <div className="flex w-full h-screen justify-center items-center">
-      <div className="p-8 w-[500px] h-[660px] flex flex-col justify-between items-center">
+      <div
+        style={{ boxShadow: "0px 0px 10px #000" }}
+        className="p-8 w-[500px] h-[700px] flex flex-col justify-between items-center"
+      >
         <form onSubmit={handleSubmit(onSubmit)}>
           <h2 className="text-4xl font-bold mb-6 w-[400px]">SignUp Here</h2>
           <div className="mb-4">

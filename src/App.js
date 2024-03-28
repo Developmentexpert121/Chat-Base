@@ -1,10 +1,13 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../src/pages/auth/Login/Login.tsx";
 import SignUp from "../src/pages/auth/SignUp/SignUp.tsx";
-import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
 import ForgotPassword from "./pages/auth/ForgetPassword/ForgotPassword.tsx";
 import ResetPassword from "./pages/auth/ResetPassword/ResetPassword.tsx";
 import { Toaster } from "react-hot-toast";
+import Layout from "../src/layout/Layout.tsx";
+import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
+import Lead from "../src/pages/Dashborad/Lead.tsx";
+import ChatHistory from "./pages/Dashborad/ChatHistory.tsx";
 
 const Aunthentication = ({ children }) => {
   const token = localStorage.getItem("token");
@@ -23,21 +26,41 @@ function App() {
       }
     >
       <Toaster />
+
       <Routes>
         <Route path="/" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-
-        <Route
-          path="/dashboard"
-          element={
-            <Aunthentication>
-              <Dashboard />
-            </Aunthentication>
-          }
-        />
       </Routes>
+      <Layout>
+        <Routes>
+          <Route
+            path="/dashboard"
+            element={
+              <Aunthentication>
+                <Dashboard />
+              </Aunthentication>
+            }
+          />
+          <Route
+            path="/lead"
+            element={
+              <Aunthentication>
+                <Lead />
+              </Aunthentication>
+            }
+          />
+          <Route
+            path="/chat-history"
+            element={
+              <Aunthentication>
+                <ChatHistory />
+              </Aunthentication>
+            }
+          />
+        </Routes>
+      </Layout>
     </div>
   );
 }
