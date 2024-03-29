@@ -70,7 +70,7 @@ const ChatHistory = () => {
                   onClick={() => handleChatSelect(index)}
                 >
                   <TableCell
-                    sx={{ borderBottom: index === chat.length - 1 ? 0 : "" }}
+                  // sx={{ borderBottom: index === chat.length - 1 ? 0 : "" }}
                   >
                     <div className="p-1 heading">{notification.name}</div>
                   </TableCell>

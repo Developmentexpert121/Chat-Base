@@ -3,6 +3,7 @@ import {
   Box,
   Button,
   Divider,
+  IconButton,
   ListItemIcon,
   MenuItem,
   MenuList,
@@ -47,13 +48,13 @@ const Header = ({ setAuthUser }) => {
         justifyContent: "space-between",
         alignItems: "center",
       }}
-      className="px-4"
+      className="px-6"
     >
       <div></div>
       <div className="flex items-center gap-4">
-        <Button onClick={handleClick}>
+        <IconButton onClick={handleClick}>
           <Avatar alt="Remy Sharp" src="/assets/bglandscape.jpg" />
-        </Button>
+        </IconButton>
         <Popover
           id={id}
           open={open}

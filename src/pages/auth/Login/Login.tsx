@@ -96,7 +96,7 @@ const Login = () => {
             </button>
           </div>
         </form>
-        <div className="mt-6 flex items-center gap-1">
+        {/* <div className="mt-6 flex items-center gap-1">
           <div className="text-sm font-medium text-gray-700 ">
             Don't have an account?{" "}
           </div>
@@ -106,7 +106,7 @@ const Login = () => {
           >
             Sign-Up!
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
