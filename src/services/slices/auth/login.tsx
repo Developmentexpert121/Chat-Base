@@ -7,7 +7,6 @@ export const userLogin: any = createAsyncThunk(
     try {
       const response = await api.post("/auth", data);
       if (response.status === 200) {
-        console.log(response);
         localStorage.setItem("token", response.data.token);
         return response.data;
       }

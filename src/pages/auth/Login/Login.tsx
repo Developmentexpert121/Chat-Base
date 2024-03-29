@@ -27,9 +27,10 @@ const SignUp = () => {
   const onSubmit = (data: any) => {
     dispatch(userLogin(data))
       .unwrap()
-      .then(
-        (response: any) => response.success === true && navigate("/dashboard")
-      );
+      .then((response: any) => {
+        response.success === true && navigate("/dashboard");
+        window.location.reload();
+      });
   };
 
   return (

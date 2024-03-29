@@ -8,13 +8,28 @@ import Layout from "../src/layout/Layout.tsx";
 import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
 import Lead from "../src/pages/Dashborad/Lead.tsx";
 import ChatHistory from "./pages/Dashborad/ChatHistory.tsx";
+import { createTheme, ThemeProvider } from "@mui/material";
 
-const Aunthentication = ({ children }) => {
-  const token = localStorage.getItem("token");
-  return token ? children : <Navigate to="/" replace={true} />;
-};
+const theme = createTheme({
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  },
+  components: {
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 9, // Adjust the value as needed
+        },
+      },
+    },
+  },
+});
 
 function App() {
+  const Aunthentication = ({ children }) => {
+    const token = localStorage.getItem("token");
+    return token ? children : <Navigate to="/" replace={true} />;
+  };
   return (
     <div
       style={
@@ -25,42 +40,44 @@ function App() {
         }
       }
     >
-      <Toaster />
+      <ThemeProvider theme={theme}>
+        <Toaster />
 
-      <Routes>
-        <Route path="/" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
-        <Route path="/reset-password/:token" element={<ResetPassword />} />
-      </Routes>
-      <Layout>
         <Routes>
-          <Route
-            path="/dashboard"
-            element={
-              <Aunthentication>
-                <Dashboard />
-              </Aunthentication>
-            }
-          />
-          <Route
-            path="/lead"
-            element={
-              <Aunthentication>
-                <Lead />
-              </Aunthentication>
-            }
-          />
-          <Route
-            path="/chat-history"
-            element={
-              <Aunthentication>
-                <ChatHistory />
-              </Aunthentication>
-            }
-          />
+          <Route path="/" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
-      </Layout>
+        <Layout>
+          <Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <Aunthentication>
+                  <Dashboard />
+                </Aunthentication>
+              }
+            />
+            <Route
+              path="/lead"
+              element={
+                <Aunthentication>
+                  <Lead />
+                </Aunthentication>
+              }
+            />
+            <Route
+              path="/chat-history"
+              element={
+                <Aunthentication>
+                  <ChatHistory />
+                </Aunthentication>
+              }
+            />
+          </Routes>
+        </Layout>
+      </ThemeProvider>
     </div>
   );
 }

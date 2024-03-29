@@ -30,13 +30,13 @@ const SideBar = () => {
   return (
     <div
       style={{
-        width: "240px",
+        width: "280px",
         minHeight: "100vh",
         borderRight: "4px solid",
       }}
       className="bg-white"
     >
-      <div className="text-4xl font-bold mt-4 ml-4 mb-4 text-black">
+      <div className="flex justify-center items-center text-4xl font-bold my-4 text-black">
         Chat-Base
       </div>
       {/* <Divider sx={{ borderColor: "black", border: 1 }} /> */}
