@@ -4,7 +4,6 @@ import SpaceDashboardIcon from "@mui/icons-material/SpaceDashboard";
 import TableChartIcon from "@mui/icons-material/TableChart";
 import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import PersonIcon from "@mui/icons-material/Person";
-import AddIcon from "@mui/icons-material/Add";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SideBar = () => {
@@ -35,12 +34,7 @@ const SideBar = () => {
       {
         name: "User",
         icon: <PersonIcon />,
-        navigateTo: "/admin/user",
-      },
-      {
-        name: "Invite User",
-        icon: <AddIcon />,
-        navigateTo: "/admin/invite-user",
+        navigateTo: "/admin/dashboard",
       },
     ];
   }

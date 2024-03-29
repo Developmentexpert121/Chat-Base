@@ -110,8 +110,12 @@ const SignUp = () => {
                 paddingBottom: 12,
                 width: "100%",
                 border: 0,
+                boxShadow: "none",
+                color: "black",
               }}
-              containerStyle={{ borderBottom: "2px solid" }}
+              containerStyle={{
+                borderBottom: "2px solid",
+              }}
               inputProps={{
                 id: "mobile",
                 name: "mobile",
@@ -195,7 +199,7 @@ const SignUp = () => {
           </div>
           <div
             className="text-sm font-medium text-black hover:underline hover:cursor-pointer"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
           >
             Log in!
           </div>

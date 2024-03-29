@@ -8,7 +8,6 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
-  Input,
   MenuItem,
   Select,
   Table,
@@ -21,7 +20,6 @@ import {
 import React, { useState } from "react";
 import "./styles.css";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import { purple } from "@mui/material/colors";
 
 const lead = [
   {
@@ -192,58 +190,6 @@ const AdminDashboard = () => {
             Enter the information about the user you want invite. The user will
             recieve an invite on the provided Email.
           </DialogContentText>
-          {/* <Box className="flex flex-col gap-y-4 py-4">
-            <Box className="flex items-center gap-3">
-              <Box className="w-[90px]">First Name</Box>
-              <Box>:</Box>
-              <Box>
-                <Input className="w-[280px]" />
-              </Box>
-            </Box>
-            <Box className="flex items-center  gap-3">
-              <Box className="w-[90px]">Last Name</Box>
-              <Box>:</Box>
-              <Box>
-                <Input className="w-[280px]" />
-              </Box>
-            </Box>
-            <Box className="flex items-center  gap-3">
-              <Box className="w-[90px]">Email</Box>
-              <Box>:</Box>
-              <Box>
-                <Input className="w-[280px]" />
-              </Box>
-            </Box>
-            <Box className="flex items-center  gap-3">
-              <Box className="w-[90px]">Chatbot Id</Box>
-              <Box>:</Box>
-              <Box>
-                <Input className="w-[280px]" />
-              </Box>
-            </Box>
-          </Box> */}
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="firstName"
-            name="firstName"
-            label="First Name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TextField
-            autoFocus
-            required
-            margin="dense"
-            id="lastName"
-            name="lastName"
-            label="Last Name"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
           <TextField
             autoFocus
             required

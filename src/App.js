@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../src/pages/auth/Login/Login.tsx";
 import LoginAdmin from "../src/pages/Admin/Login.tsx";
 import AdminDashboard from "../src/pages/Admin/AdminDashboard.tsx";
-import InviteUsers from "../src/pages/Admin/InviteUsers.tsx";
 import SignUp from "../src/pages/auth/SignUp/SignUp.tsx";
 import ForgotPassword from "./pages/auth/ForgetPassword/ForgotPassword.tsx";
 import ResetPassword from "./pages/auth/ResetPassword/ResetPassword.tsx";
@@ -47,8 +46,8 @@ function App() {
         <Toaster />
 
         <Routes>
-          <Route path="/" element={<SignUp />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/admin/login" element={<LoginAdmin />} />
@@ -80,18 +79,10 @@ function App() {
               }
             />
             <Route
-              path="/admin/user"
+              path="/admin/dashboard"
               element={
                 <Aunthentication>
                   <AdminDashboard />
-                </Aunthentication>
-              }
-            />
-            <Route
-              path="/admin/invite-user"
-              element={
-                <Aunthentication>
-                  <InviteUsers />
                 </Aunthentication>
               }
             />
