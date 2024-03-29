@@ -1,5 +1,8 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "../src/pages/auth/Login/Login.tsx";
+import LoginAdmin from "../src/pages/Admin/Login.tsx";
+import AdminDashboard from "../src/pages/Admin/AdminDashboard.tsx";
+import InviteUsers from "../src/pages/Admin/InviteUsers.tsx";
 import SignUp from "../src/pages/auth/SignUp/SignUp.tsx";
 import ForgotPassword from "./pages/auth/ForgetPassword/ForgotPassword.tsx";
 import ResetPassword from "./pages/auth/ResetPassword/ResetPassword.tsx";
@@ -48,6 +51,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/admin/login" element={<LoginAdmin />} />
         </Routes>
         <Layout>
           <Routes>
@@ -72,6 +76,22 @@ function App() {
               element={
                 <Aunthentication>
                   <ChatHistory />
+                </Aunthentication>
+              }
+            />
+            <Route
+              path="/admin/user"
+              element={
+                <Aunthentication>
+                  <AdminDashboard />
+                </Aunthentication>
+              }
+            />
+            <Route
+              path="/admin/invite-user"
+              element={
+                <Aunthentication>
+                  <InviteUsers />
                 </Aunthentication>
               }
             />

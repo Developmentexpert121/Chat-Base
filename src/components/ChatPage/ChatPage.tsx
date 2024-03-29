@@ -4,115 +4,40 @@ import React, { useEffect, useRef } from "react";
 const chat = [
   {
     chatt: "hello",
+    sentByMe: true,
   },
 
   {
     chatt: "hello",
+    sentByMe: false,
   },
   {
     chatt: "hello",
+    sentByMe: true,
   },
   {
     chatt: "hello",
+    sentByMe: true,
   },
   {
     chatt: "hello",
+    sentByMe: false,
   },
   {
     chatt: "hello",
+    sentByMe: true,
   },
   {
     chatt: "hello",
+    sentByMe: false,
   },
   {
     chatt: "hello",
+    sentByMe: true,
   },
   {
     chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
-  },
-  {
-    chatt: "hello",
+    sentByMe: true,
   },
 ];
 
@@ -133,9 +58,13 @@ const ChatPage = ({ selectedChat }) => {
             {selectedChat ? selectedChat.name : "Header"}
           </Box>
           <Box sx={{ flexGrow: 1, overflowY: "auto" }} ref={chatRef}>
-            {selectedChat
-              ? chat.map((chats, index) => <Box key={index}>{chats.chatt}</Box>)
-              : "Chats"}
+            {chat.map((chats, index) => (
+              <Box key={index}>
+                <Box>
+                  <text className="border p-2">{chats.chatt}</text>
+                </Box>
+              </Box>
+            ))}
           </Box>
           <Box className="h-[80px] bg-gray-200">Footer</Box>
         </Box>

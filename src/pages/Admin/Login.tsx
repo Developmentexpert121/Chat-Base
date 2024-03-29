@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
-import { userLogin } from "../../../services/slices/auth/login.tsx";
+import { userLogin } from "../../services/slices/auth/login.tsx";
 
-const Login = () => {
+const LoginAdmin = () => {
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
@@ -28,7 +28,7 @@ const Login = () => {
     dispatch(userLogin(data))
       .unwrap()
       .then((response: any) => {
-        response.success === true && navigate("/dashboard");
+        response.success === true && navigate("/admin/user");
         window.location.reload();
       });
   };
@@ -36,11 +36,13 @@ const Login = () => {
   return (
     <div className="flex w-full h-screen justify-center items-center">
       <div
-        className="p-8 w-[500px] h-[410px] flex flex-col justify-between items-center"
+        className="p-8 w-[500px] h-[380px] flex flex-col justify-between items-center"
         style={{ boxShadow: "0px 0px 10px #000" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-4xl font-bold mb-6 w-[400px]">Login Here</h2>
+          <h2 className="text-4xl font-bold mb-6 w-[400px]">
+            Admin Login Here
+          </h2>
 
           <div className="mb-4">
             <label
@@ -81,35 +83,24 @@ const Login = () => {
               </p>
             )}
           </div>
-          <div
+          {/* <div
             className="text-sm font-medium text-black hover:underline hover:cursor-pointer"
             onClick={() => navigate("/forgot-password")}
           >
             Forgot password?
-          </div>
+          </div> */}
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-black text-white font-semibold px-4 py-2 mt-4 rounded-md focus:bg-white hover:border-2 border-black focus:outline-none focus:text-black"
+              className="bg-black text-white font-semibold px-4 py-2 mt-6 rounded-md focus:bg-white hover:border-2 border-black focus:outline-none focus:text-black"
             >
               Login
             </button>
           </div>
         </form>
-        <div className="mt-6 flex items-center gap-1">
-          <div className="text-sm font-medium text-gray-700 ">
-            Don't have an account?{" "}
-          </div>
-          <div
-            className="text-sm font-medium text-black hover:underline hover:cursor-pointer"
-            onClick={() => navigate("/")}
-          >
-            Sign-Up!
-          </div>
-        </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default LoginAdmin;

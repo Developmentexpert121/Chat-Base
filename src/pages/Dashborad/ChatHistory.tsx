@@ -11,43 +11,23 @@ import ChatPage from "../../components/ChatPage/ChatPage.tsx";
 
 const chat = [
   {
-    name: "Hoihjasdo",
+    name: "ChatGpt",
     message: "Hello World",
   },
   {
-    name: "erewgao",
+    name: "Devin",
     message: "Hiiis",
   },
   {
-    name: "rthjkjy",
+    name: "Gemini",
     message: "Maagads",
   },
   {
-    name: "weyshb",
+    name: "Gork",
     message: "Oyugadskj",
   },
   {
-    name: "weyshb",
-    message: "Oyugadskj",
-  },
-  {
-    name: "weyshb",
-    message: "Oyugadskj",
-  },
-  {
-    name: "weyshb",
-    message: "Oyugadskj",
-  },
-  {
-    name: "weyshb",
-    message: "Oyugadskj",
-  },
-  {
-    name: "weyshb",
-    message: "Oyugadskj",
-  },
-  {
-    name: "weyshb",
+    name: "Bard",
     message: "Oyugadskj",
   },
 ];
