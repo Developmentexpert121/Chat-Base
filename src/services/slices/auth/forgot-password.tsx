@@ -18,11 +18,11 @@ export const forgotPassword: any = createAsyncThunk(
   }
 );
 
-export interface Login {
+export interface ForgotPassword {
   loading: boolean;
 }
 
-const initialState: Login = {
+const initialState: ForgotPassword = {
   loading: false,
 };
 

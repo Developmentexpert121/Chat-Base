@@ -46,7 +46,7 @@ function App() {
         <Toaster />
 
         <Routes>
-          <Route path="/sign-up" element={<SignUp />} />
+          <Route path="/signup/:token" element={<SignUp />} />
           <Route path="/" element={<Login />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />

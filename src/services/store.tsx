@@ -3,6 +3,9 @@ import signUpSlice from "./slices/auth/signUp.tsx";
 import loginSlice from "./slices/auth/login.tsx";
 import forgotPasswordSlice from "./slices/auth/login.tsx";
 import resetPasswordSlice from "./slices/auth/reset-password.tsx";
+import allUsersSlice from "./slices/admin/all-users.tsx";
+import inviteUserSlice from "./slices/admin/invite-user.tsx";
+import updateRestrictionsSlice from "./slices/admin/update-restricted.tsx";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +13,9 @@ export const store = configureStore({
     login: loginSlice,
     forgotPassword: forgotPasswordSlice,
     resetPassword: resetPasswordSlice,
+    allUsers: allUsersSlice,
+    inviteUser: inviteUserSlice,
+    updateRestrictions: updateRestrictionsSlice,
   },
 });
 

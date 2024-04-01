@@ -17,9 +17,14 @@ import {
   TableRow,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.css";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAllUsers } from "../../services/slices/admin/all-users.tsx";
+import { inviteUser } from "../../services/slices/admin/invite-user.tsx";
+import toast from "react-hot-toast";
+import { updateRestrictions } from "../../services/slices/admin/update-restricted.tsx";
 
 const lead = [
   {
@@ -53,6 +58,9 @@ const lead = [
 ];
 
 const AdminDashboard = () => {
+  const dispatch: any = useDispatch();
+  const data = useSelector((state: any) => state.allUsers.data);
+
   const [accountStatus, setAccountStatus] = useState(() => {
     const initialStatus = {};
     lead.forEach((order, index) => {
@@ -61,8 +69,25 @@ const AdminDashboard = () => {
     return initialStatus;
   });
 
-  const handleChange = (event: any, index: any) => {
+  useEffect(() => {
+    dispatch(fetchAllUsers());
+  }, []);
+
+  const handleChange = (event: any, index: any, id: any) => {
     const { value } = event.target;
+    console.log(value, id);
+    dispatch(
+      updateRestrictions({
+        userId: id,
+        isRestricted: value === "open" ? true : false,
+      })
+    )
+      .unwrap()
+      .then((response: any) =>
+        response?.success === true
+          ? toast.success("Account status updated successfully")
+          : toast.error("Something went wrong")
+      );
     setAccountStatus((prevState) => ({
       ...prevState,
       [index]: value,
@@ -117,37 +142,39 @@ const AdminDashboard = () => {
               </TableRow>
             </TableHead>
             <TableBody>
-              {lead.map((order, index) => {
+              {data.map((order: any, index: any) => {
                 return (
                   <TableRow hover key={index}>
                     <TableCell
-                      sx={{ borderBottom: index === lead.length - 1 ? 0 : "" }}
+                      sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.name}
+                      {order.customerName}
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: index === lead.length - 1 ? 0 : "" }}
+                      sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.email}
+                      {order.customerEmail}
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: index === lead.length - 1 ? 0 : "" }}
+                      sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.phone}
+                      {order.customerPhone}
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: index === lead.length - 1 ? 0 : "" }}
+                      sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.submittedAt}
+                      {new Date(order.createdAt).toLocaleDateString("en-GB")}
                     </TableCell>
                     <TableCell
-                      sx={{ borderBottom: index === lead.length - 1 ? 0 : "" }}
+                      sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
                       <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
                         <Select
                           displayEmpty
                           value={accountStatus[index] || "No Status"}
-                          onChange={(event) => handleChange(event, index)}
+                          onChange={(event) =>
+                            handleChange(event, index, order.id)
+                          }
                           renderValue={(selected) => {
                             if (selected.length === 0) {
                               return <em>Placeholder</em>;
@@ -177,7 +204,14 @@ const AdminDashboard = () => {
             const formData = new FormData(event.currentTarget);
             const formJson = Object.fromEntries((formData as any).entries());
             const email = formJson.email;
-            console.log(email);
+            const chatBotId = formJson.chatBotId;
+            dispatch(inviteUser({ email: email, chatbotId: chatBotId }))
+              .unwrap()
+              .then((response: any) =>
+                response?.success === true
+                  ? toast.success("Invite sent successfully")
+                  : toast.error("Something went wrong")
+              );
             handleCloseDialog();
           },
         }}

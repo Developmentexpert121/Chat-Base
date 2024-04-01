@@ -6,6 +6,7 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useDispatch } from "react-redux";
 import { userLogin } from "../../../services/slices/auth/login.tsx";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -28,8 +29,12 @@ const Login = () => {
     dispatch(userLogin(data))
       .unwrap()
       .then((response: any) => {
-        response.success === true && navigate("/dashboard");
-        window.location.reload();
+        if (response.isRestricted === true) {
+          toast.error("You are restricted to enter the site");
+        } else {
+          response.success === true && navigate("/dashboard");
+          // window.location.reload();
+        }
       });
   };
 

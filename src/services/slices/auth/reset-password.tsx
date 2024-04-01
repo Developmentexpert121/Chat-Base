@@ -20,11 +20,11 @@ export const resetPassword: any = createAsyncThunk(
   }
 );
 
-export interface Login {
+export interface ResetPassword {
   loading: boolean;
 }
 
-const initialState: Login = {
+const initialState: ResetPassword = {
   loading: false,
 };
 

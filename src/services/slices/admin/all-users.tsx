@@ -1,16 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../http/baseUrl.tsx";
 
-export const userLogin: any = createAsyncThunk(
-  "auth/userLogin",
-  async (data, { dispatch }) => {
+export const fetchAllUsers: any = createAsyncThunk(
+  "admin/allUsers",
+  async () => {
     try {
-      const response: any = await api.post("/auth", data);
+      const response = await api.get("/users/getAllChatbots");
       if (response.status === 200) {
-        if (response.data.success === true) {
-          localStorage?.setItem("token", response.data.token);
-        }
-
+        console.log(response);
         return response.data;
       }
     } catch (error) {
@@ -21,32 +18,35 @@ export const userLogin: any = createAsyncThunk(
   }
 );
 
-export interface Login {
+export interface AllUsers {
   loading: boolean;
+  data: [];
 }
 
-const initialState: Login = {
+const initialState: AllUsers = {
   loading: false,
+  data: [],
 };
 
-export const loginSlice = createSlice({
-  name: "login",
+export const allUsersSlice = createSlice({
+  name: "allUsers",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       // agent registration
-      .addCase(userLogin.pending, (state, action) => {
+      .addCase(fetchAllUsers.pending, (state, action) => {
         state.loading = true;
       })
-      .addCase(userLogin.fulfilled, (state, action) => {
+      .addCase(fetchAllUsers.fulfilled, (state, action) => {
         // state.data.agentUser=action.payload;
+        state.data = action.payload.data;
         state.loading = false;
       })
-      .addCase(userLogin.rejected, (state, action) => {
+      .addCase(fetchAllUsers.rejected, (state, action) => {
         state.loading = false;
       });
   },
 });
 
-export default loginSlice.reducer;
+export default allUsersSlice.reducer;

@@ -34,9 +34,7 @@ const SignUp = () => {
   const onSubmit = async (data: any) => {
     await dispatch(userSignUp({ data: data, phone: phone }))
       .unwrap()
-      .then(
-        (response: any) => response?.success === true && navigate("/login")
-      );
+      .then((response: any) => response?.success === true && navigate("/"));
   };
 
   const [checked, setChecked] = React.useState(true);

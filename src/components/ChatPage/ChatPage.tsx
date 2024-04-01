@@ -1,5 +1,12 @@
-import { Avatar, Box, Button, IconButton, TextField } from "@mui/material";
-import React, { useEffect, useRef } from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  CircularProgress,
+  IconButton,
+  TextField,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 
@@ -28,6 +35,43 @@ const chat = [
   {
     chatt: "hello",
     sentByMe: true,
+  },
+
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
+  },
+  {
+    chatt: "hello",
+    sentByMe: false,
   },
   {
     chatt: "hello",
@@ -58,7 +102,10 @@ const ChatPage = ({ selectedChat }) => {
             </IconButton>
           </Box>
           <Box sx={{ flexGrow: 1, overflowY: "auto" }} ref={chatRef}>
-            {chat.map((chats, index) => (
+            {/* {isLoading && (
+              <CircularProgress sx={{ m: 2, alignSelf: "center" }} />
+            )} */}
+            {chat.map((chats: any, index: any) => (
               <Box
                 key={index}
                 className={`mt-4 mx-2 gap-2 ${
