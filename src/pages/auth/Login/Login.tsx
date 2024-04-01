@@ -33,7 +33,7 @@ const Login = () => {
           toast.error("You are restricted to enter the site");
         } else {
           response.success === true && navigate("/dashboard");
-          // window.location.reload();
+          window.location.reload();
         }
       });
   };

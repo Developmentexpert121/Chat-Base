@@ -26,52 +26,13 @@ import { inviteUser } from "../../services/slices/admin/invite-user.tsx";
 import toast from "react-hot-toast";
 import { updateRestrictions } from "../../services/slices/admin/update-restricted.tsx";
 
-const lead = [
-  {
-    name: "Johnny",
-    email: "john@gmail.com",
-    phone: "214567890",
-    submittedAt: "2001",
-    status: "open",
-  },
-  {
-    name: "HHage",
-    email: "HHage@gmail.com",
-    phone: "12345214",
-    submittedAt: "2001",
-    status: "closed",
-  },
-  {
-    name: "Hkarrsv",
-    email: "Hkarrsv@gmail.com",
-    phone: "1347167890",
-    submittedAt: "2001",
-    status: "closed",
-  },
-  {
-    name: "Luagsf",
-    email: "Luagsf@gmail.com",
-    phone: "34674325",
-    submittedAt: "2001",
-    status: "open",
-  },
-];
-
 const AdminDashboard = () => {
   const dispatch: any = useDispatch();
   const data = useSelector((state: any) => state.allUsers.data);
 
-  const [accountStatus, setAccountStatus] = useState(() => {
-    const initialStatus = {};
-    lead.forEach((order, index) => {
-      initialStatus[index] = order.status;
-    });
-    return initialStatus;
-  });
-
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, []);
+  }, [dispatch]);
 
   const handleChange = (event: any, index: any, id: any) => {
     const { value } = event.target;
@@ -88,10 +49,6 @@ const AdminDashboard = () => {
           ? toast.success("Account status updated successfully")
           : toast.error("Something went wrong")
       );
-    setAccountStatus((prevState) => ({
-      ...prevState,
-      [index]: value,
-    }));
   };
 
   const [openDialog, setOpenDialog] = useState(false);
@@ -143,22 +100,23 @@ const AdminDashboard = () => {
             </TableHead>
             <TableBody>
               {data.map((order: any, index: any) => {
+                console.log(order.isRestricted);
                 return (
                   <TableRow hover key={index}>
                     <TableCell
                       sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.customerName}
+                      {order.firstName} {order.lastName}
                     </TableCell>
                     <TableCell
                       sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.customerEmail}
+                      {order.email}
                     </TableCell>
                     <TableCell
                       sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
                     >
-                      {order.customerPhone}
+                      {order.mobile}
                     </TableCell>
                     <TableCell
                       sx={{ borderBottom: index === data.length - 1 ? 0 : "" }}
@@ -171,7 +129,11 @@ const AdminDashboard = () => {
                       <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
                         <Select
                           displayEmpty
-                          value={accountStatus[index] || "No Status"}
+                          value={
+                            order.isRestricted === false
+                              ? "open"
+                              : "closed" || "No Status"
+                          }
                           onChange={(event) =>
                             handleChange(event, index, order.id)
                           }

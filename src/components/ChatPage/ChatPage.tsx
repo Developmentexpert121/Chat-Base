@@ -81,12 +81,27 @@ const chat = [
 
 const ChatPage = ({ selectedChat }) => {
   const chatRef: any = useRef(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadedMessages, setLoadedMessages] = useState(11);
 
   useEffect(() => {
     if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
   }, [selectedChat]);
+
+  const handleScroll = () => {
+    const scrollTop = chatRef.current.scrollTop;
+    if (scrollTop === 0) {
+      // User has scrolled to the top
+      setIsLoading(true);
+      // Simulate loading delay
+      setTimeout(() => {
+        setLoadedMessages((prevLoadedMessages) => prevLoadedMessages + 11);
+        setIsLoading(false);
+      }, 1000); // Adjust this delay as needed
+    }
+  };
 
   return (
     <Box sx={{ height: "100%" }}>
@@ -101,11 +116,19 @@ const ChatPage = ({ selectedChat }) => {
               <MoreVertIcon />
             </IconButton>
           </Box>
-          <Box sx={{ flexGrow: 1, overflowY: "auto" }} ref={chatRef}>
-            {/* {isLoading && (
-              <CircularProgress sx={{ m: 2, alignSelf: "center" }} />
-            )} */}
-            {chat.map((chats: any, index: any) => (
+          <Box
+            sx={{ flexGrow: 1, overflowY: "auto" }}
+            ref={chatRef}
+            onScroll={handleScroll}
+          >
+            {isLoading && (
+              <Box className="flex justify-center items-center">
+                <CircularProgress
+                  sx={{ m: 2, alignSelf: "center", color: "black" }}
+                />
+              </Box>
+            )}
+            {chat.slice(0, loadedMessages).map((chats: any, index: any) => (
               <Box
                 key={index}
                 className={`mt-4 mx-2 gap-2 ${

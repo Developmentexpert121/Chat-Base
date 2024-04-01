@@ -6,6 +6,7 @@ import resetPasswordSlice from "./slices/auth/reset-password.tsx";
 import allUsersSlice from "./slices/admin/all-users.tsx";
 import inviteUserSlice from "./slices/admin/invite-user.tsx";
 import updateRestrictionsSlice from "./slices/admin/update-restricted.tsx";
+import fetchAllLeadsSlice from "./slices/auth/leads.tsx";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     forgotPassword: forgotPasswordSlice,
     resetPassword: resetPasswordSlice,
     allUsers: allUsersSlice,
+    fetchAllLeads: fetchAllLeadsSlice,
     inviteUser: inviteUserSlice,
     updateRestrictions: updateRestrictionsSlice,
   },
