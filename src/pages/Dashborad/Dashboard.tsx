@@ -80,11 +80,11 @@ const notification = [
 const Dashboard = () => {
   return (
     <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl font-bold mb-6">Dashboard</div>
+      <div className="text-5xl text-white font-bold mb-6">Dashboard</div>
       <Grid container spacing={3}>
         <Grid item lg={8}>
           <Card
-            className="p-6"
+            className="p-6 "
             sx={{
               boxShadow: 2,
               borderColor: "grey",
@@ -96,7 +96,7 @@ const Dashboard = () => {
         </Grid>
         <Grid item lg={4}>
           <Card
-            className="py-6 h-full flex flex-col items-center"
+            className="py-6 h-full flex flex-col items-center "
             sx={{
               boxShadow: 2,
               borderColor: "grey",

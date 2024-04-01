@@ -1,5 +1,5 @@
 // Login.js
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
@@ -10,16 +10,28 @@ import "react-phone-input-2/lib/bootstrap.css";
 import { useDispatch } from "react-redux";
 import { userSignUp } from "../../../services/slices/auth/signUp.tsx";
 import toast from "react-hot-toast";
+import { getEmail } from "../../../services/slices/auth/getEmail.tsx";
+import { TextField } from "@mui/material";
 
 const SignUp = () => {
   const navigate = useNavigate();
   const params = useParams();
   const dispatch: any = useDispatch();
 
+  const [email, setEmai] = useState("");
+
+  useEffect(() => {
+    dispatch(getEmail({ token: params?.token }))
+      .unwrap()
+      .then((response: any) => {
+        setEmai(response.data);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch, params.token]);
+
   const schema = yup.object().shape({
     firstName: yup.string().required("First Name is required"),
     lastName: yup.string().required("Last Name is required"),
-    email: yup.string().required("Email is required"),
     password: yup.string().required("Password is required"),
   });
 
@@ -35,7 +47,12 @@ const SignUp = () => {
 
   const onSubmit = async (data: any) => {
     await dispatch(
-      userSignUp({ data: data, phone: phone, token: params.token })
+      userSignUp({
+        data: data,
+        phone: phone,
+        token: params.token,
+        email: email,
+      })
     )
       .unwrap()
       .then((response: any) => {
@@ -144,17 +161,24 @@ const SignUp = () => {
             >
               Email
             </label>
-            <input
+            {/* <input
               type="email"
               id="email"
-              {...register("email")}
+              value={email}
+              disabled
+              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+            /> */}
+            <TextField
+              disabled
+              value={email}
+              variant="filled"
               className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
             />
-            {errors.email && (
+            {/* {errors.email && (
               <p className="text-red-500 text-sm mt-1">
                 {errors.email.message}
               </p>
-            )}
+            )} */}
           </div>
           <div className="mb-4">
             <label

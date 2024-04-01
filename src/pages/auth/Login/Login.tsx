@@ -32,8 +32,11 @@ const Login = () => {
         if (response.isRestricted === true) {
           toast.error("You are restricted to enter the site");
         } else {
-          response.success === true && navigate("/dashboard");
-          window.location.reload();
+          console.log("admin", response.isAdmin);
+          response.success === true && response.isAdmin === 1
+            ? navigate("/admin/dashboard")
+            : navigate("/dashboard");
+          // window.location.reload();
         }
       });
   };

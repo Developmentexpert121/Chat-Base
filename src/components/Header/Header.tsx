@@ -41,18 +41,21 @@ const Header = ({ setAuthUser }) => {
   return (
     <div
       style={{
-        backgroundColor: "white",
-        height: "72px",
+        height: "74px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
       }}
-      className="px-6"
+      className="px-6 pb-4 pt-6"
     >
       <div></div>
       <div className="flex items-center gap-4">
         <IconButton onClick={handleClick}>
-          <Avatar alt="Remy Sharp" src="/assets/bglandscape.jpg" />
+          <Avatar
+            alt="Remy Sharp"
+            src="/assets/bglandscape.jpg"
+            style={{ border: "2px solid white", borderRadius: "50%" }}
+          />
         </IconButton>
         <Popover
           id={id}
@@ -69,9 +72,9 @@ const Header = ({ setAuthUser }) => {
           }}
         >
           <Box sx={{ p: "16px 20px " }}>
-            <Typography variant="subtitle1">Sofia Rivers</Typography>
+            <Typography variant="subtitle1">Henry</Typography>
             <Typography color="text.secondary" variant="body2">
-              sofia.rivers@devias.io
+              henry@chatbase.com
             </Typography>
           </Box>
           <Divider />

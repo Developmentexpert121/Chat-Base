@@ -41,7 +41,7 @@ const ChatHistory = () => {
 
   return (
     <Box sx={{ px: 8, py: 1, height: "90vh" }}>
-      <Box className="text-5xl font-bold mb-6">Chat History</Box>
+      <Box className="text-5xl text-white font-bold mb-6">Chat History</Box>
       <Card
         sx={{
           boxShadow: 2,

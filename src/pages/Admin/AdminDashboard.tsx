@@ -63,15 +63,15 @@ const AdminDashboard = () => {
 
   return (
     <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl font-bold mb-6">All User</div>
+      <div className="text-5xl text-white font-bold mb-6">All Users</div>
       <Box className="flex justify-end mr-2 mb-2">
         <Button
           variant="contained"
           onClick={handleClickOpenDialog}
           sx={{
-            backgroundColor: "black",
+            backgroundColor: "#E16349",
             "&:hover": {
-              backgroundColor: "black",
+              backgroundColor: "#E16349",
             },
           }}
           startIcon={<PersonAddIcon />}

@@ -3,11 +3,11 @@ import http from "../../http/baseUrl.tsx";
 
 export const userSignUp = createAsyncThunk(
   "auth/userSignUp",
-  async ({ data, phone, token }: any, { dispatch }) => {
+  async ({ data, phone, token, email }: any, { dispatch }) => {
     const newData = {
       firstName: data.firstName,
       lastName: data.lastName,
-      email: data.email,
+      email: email,
       mobile: phone,
       password: data.password,
     };

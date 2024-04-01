@@ -23,10 +23,12 @@ export const userLogin: any = createAsyncThunk(
 
 export interface Login {
   loading: boolean;
+  isAdmin: boolean;
 }
 
 const initialState: Login = {
   loading: false,
+  isAdmin: false,
 };
 
 export const loginSlice = createSlice({
@@ -41,6 +43,7 @@ export const loginSlice = createSlice({
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         // state.data.agentUser=action.payload;
+        state.isAdmin = action.payload.isAdmin;
         state.loading = false;
       })
       .addCase(userLogin.rejected, (state, action) => {

@@ -71,7 +71,7 @@ const Lead = () => {
 
   return (
     <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl font-bold mb-6">Lead</div>
+      <div className="text-5xl text-white font-bold mb-6">Lead</div>
 
       <Card
         sx={{

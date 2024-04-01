@@ -6,7 +6,8 @@ import { useLocation } from "react-router-dom";
 import { Box } from "@mui/material";
 
 const Layout = ({ children }) => {
-  const [authUser, setAuthUser] = useState(false);
+  const [authUser, setAuthUser] = useState(!!localStorage.getItem("token"));
+
   const location = useLocation();
   const token = localStorage.getItem("token");
   useEffect(() => {
@@ -16,11 +17,14 @@ const Layout = ({ children }) => {
   }, [token]);
 
   const isAllowedRoute = () => {
-    const allowedRoutes = ["/signup/:token", "/", "/admin/login"];
-    return allowedRoutes.includes(location.pathname);
+    const disallowedRoutes = ["/signup/:token", "/", "/admin/login"];
+    return (
+      !disallowedRoutes.includes(location.pathname) &&
+      !location.pathname.startsWith("/signup/")
+    );
   };
-  return (
-    <Box>
+  return authUser !== null ? (
+    <Box className="bg-gradient-to-b from-[#0F0448] via-[#2D229E] to-[#4E36D6]">
       <Box
         sx={{
           display: "flex",
@@ -43,6 +47,8 @@ const Layout = ({ children }) => {
       </Box>
       {/* <Footer /> */}
     </Box>
+  ) : (
+    ""
   );
 };
 
