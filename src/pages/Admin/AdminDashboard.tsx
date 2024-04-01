@@ -172,7 +172,7 @@ const AdminDashboard = () => {
               .then((response: any) =>
                 response?.success === true
                   ? toast.success("Invite sent successfully")
-                  : toast.error("Something went wrong")
+                  : toast.error(response.message)
               );
             handleCloseDialog();
           },

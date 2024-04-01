@@ -44,15 +44,15 @@ function App() {
     >
       <ThemeProvider theme={theme}>
         <Toaster />
-
-        <Routes>
-          <Route path="/signup/:token" element={<SignUp />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password/:token" element={<ResetPassword />} />
-          <Route path="/admin/login" element={<LoginAdmin />} />
-        </Routes>
         <Layout>
+          <Routes>
+            <Route path="/signup/:token" element={<SignUp />} />
+            <Route path="/" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
+            <Route path="/admin/login" element={<LoginAdmin />} />
+          </Routes>
+
           <Routes>
             <Route
               path="/dashboard"

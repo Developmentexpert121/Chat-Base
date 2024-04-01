@@ -1,45 +1,45 @@
 import {
   Box,
   Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableRow,
+  // Table,
+  // TableBody,
+  // TableCell,
+  // TableHead,
+  // TableRow,
 } from "@mui/material";
 import React, { useEffect } from "react";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLeads } from "../../services/slices/auth/leads.tsx";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+// import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
-const lead = [
-  {
-    name: "Johnny",
-    email: "john@gmail.com",
-    phone: "214567890",
-    submittedAt: "2001",
-  },
-  {
-    name: "HHage",
-    email: "HHage@gmail.com",
-    phone: "12345214",
-    submittedAt: "2001",
-  },
-  {
-    name: "Hkarrsv",
-    email: "Hkarrsv@gmail.com",
-    phone: "1347167890",
-    submittedAt: "2001",
-  },
-  {
-    name: "Luagsf",
-    email: "Luagsf@gmail.com",
-    phone: "34674325",
-    submittedAt: "2001",
-  },
-];
+// const lead = [
+//   {
+//     name: "Johnny",
+//     email: "john@gmail.com",
+//     phone: "214567890",
+//     submittedAt: "2001",
+//   },
+//   {
+//     name: "HHage",
+//     email: "HHage@gmail.com",
+//     phone: "12345214",
+//     submittedAt: "2001",
+//   },
+//   {
+//     name: "Hkarrsv",
+//     email: "Hkarrsv@gmail.com",
+//     phone: "1347167890",
+//     submittedAt: "2001",
+//   },
+//   {
+//     name: "Luagsf",
+//     email: "Luagsf@gmail.com",
+//     phone: "34674325",
+//     submittedAt: "2001",
+//   },
+// ];
 
 const Lead = () => {
   const dispatch: any = useDispatch();

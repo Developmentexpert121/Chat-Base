@@ -3,17 +3,18 @@ import http from "../../http/baseUrl.tsx";
 
 export const userSignUp = createAsyncThunk(
   "auth/userSignUp",
-  async ({ data, phone }: any, { dispatch }) => {
+  async ({ data, phone, token }: any, { dispatch }) => {
     const newData = {
-      email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
+      email: data.email,
+      mobile: phone,
       password: data.password,
-      phone: phone,
     };
+    console.log("toke", token);
     try {
       console.log("dataaaa", newData);
-      const response = await http.post("/auth/register", newData);
+      const response = await http.post(`/users/updateUser/${token}`, newData);
       console.log(response);
       if (response.status === 200) {
         return response.data;
@@ -28,10 +29,12 @@ export const userSignUp = createAsyncThunk(
 
 export interface SignUp {
   loading: boolean;
+  data: [];
 }
 
 const initialState: SignUp = {
   loading: false,
+  data: [],
 };
 
 export const signUpSlice = createSlice({
@@ -46,6 +49,7 @@ export const signUpSlice = createSlice({
       })
       .addCase(userSignUp.fulfilled, (state, action) => {
         // state.data.agentUser=action.payload;
+        state.data = action.payload.data;
         state.loading = false;
       })
       .addCase(userSignUp.rejected, (state, action) => {

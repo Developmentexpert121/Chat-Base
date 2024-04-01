@@ -1,6 +1,6 @@
 // Login.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,9 +9,11 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/bootstrap.css";
 import { useDispatch } from "react-redux";
 import { userSignUp } from "../../../services/slices/auth/signUp.tsx";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const params = useParams();
   const dispatch: any = useDispatch();
 
   const schema = yup.object().shape({
@@ -32,9 +34,18 @@ const SignUp = () => {
   console.log("errorserrors ", errors);
 
   const onSubmit = async (data: any) => {
-    await dispatch(userSignUp({ data: data, phone: phone }))
+    await dispatch(
+      userSignUp({ data: data, phone: phone, token: params.token })
+    )
       .unwrap()
-      .then((response: any) => response?.success === true && navigate("/"));
+      .then((response: any) => {
+        if (response?.success === true) {
+          toast.success("Account created successfully");
+          navigate("/");
+        } else {
+          toast.error(response.message);
+        }
+      });
   };
 
   const [checked, setChecked] = React.useState(true);

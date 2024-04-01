@@ -9,7 +9,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 const SideBar = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isAdmin = false;
+  const isAdmin = true;
 
   const redirect = (item: string) => {
     navigate(item);
