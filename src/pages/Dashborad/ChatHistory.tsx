@@ -78,7 +78,7 @@ const ChatHistory = () => {
           <Button
             variant="outlined"
             onClick={() => setOpen(true)}
-            sx={{ color: "grey", borderColor: "black" }}
+            sx={{ color: "grey", borderColor: "1px solid black" }}
           >
             Pick Date
           </Button>

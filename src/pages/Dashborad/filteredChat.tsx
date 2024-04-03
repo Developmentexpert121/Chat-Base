@@ -9,6 +9,14 @@ import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import Typography from "@mui/material/Typography";
 
+import dayjs, { Dayjs } from "dayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { getUsersConversation } from "../../services/slices/auth/users-conversation.tsx";
+import { useDispatch } from "react-redux";
+
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -19,11 +27,42 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
 }));
 
 const FilteredChat = ({ open, setOpen }: any) => {
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
+  const dispatch = useDispatch<any>();
+  const [value1, setValue1] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const [value2, setValue2] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const filteredChatData = () => {
+    const startDate = new Date(value1);
+    const endDate = new Date(value2);
+
+    const year1 = startDate.getFullYear();
+    const month1 = (startDate.getMonth() + 1).toString().padStart(2, "0");
+    const day1 = startDate.getDate().toString().padStart(2, "0");
+
+    const year2 = endDate.getFullYear();
+    const month2 = (endDate.getMonth() + 1).toString().padStart(2, "0");
+    const day2 = endDate.getDate().toString().padStart(2, "0");
+
+    // Construct the formatted date string in the format 'YYYY-MM-DD'
+    const formattedStartDate = `${year1}-${month1}-${day1}`;
+    const formattedEndDate = `${year2}-${month2}-${day2}`;
+
+    console.log(formattedStartDate);
+    console.log(formattedEndDate);
+
+    const chatbotId = localStorage.getItem("chatbotId");
+    const data = {
+      chatbotId: chatbotId,
+      startDate: formattedStartDate,
+      endDate: formattedEndDate,
+      page: 1,
+      size: 20,
+    };
+    dispatch(getUsersConversation(data));
+    handleClose();
   };
 
   return (
@@ -32,9 +71,15 @@ const FilteredChat = ({ open, setOpen }: any) => {
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
         open={open}
+        PaperProps={{
+          sx: {
+            width: "100%",
+            maxWidth: "690px!important",
+          },
+        }}
       >
         <DialogTitle sx={{ m: 0, p: 2 }} id="customized-dialog-title">
-          Modal title
+          Pick up date range
         </DialogTitle>
         <IconButton
           aria-label="close"
@@ -49,24 +94,25 @@ const FilteredChat = ({ open, setOpen }: any) => {
           <CloseIcon />
         </IconButton>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DemoContainer components={["DatePicker", "DatePicker"]}>
+              <DatePicker
+                label="Start Date"
+                value={value1}
+                onChange={(newValue) => setValue1(newValue)}
+                sx={{ width: 700 }}
+              />
+              <DatePicker
+                label="End Date"
+                value={value2}
+                onChange={(newValue) => setValue2(newValue)}
+                sx={{ width: 700 }}
+              />
+            </DemoContainer>
+          </LocalizationProvider>
         </DialogContent>
         <DialogActions>
-          <Button autoFocus onClick={handleClose}>
+          <Button autoFocus onClick={() => filteredChatData()}>
             Save changes
           </Button>
         </DialogActions>
