@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "@mui/material/Button";
 import { styled } from "@mui/material/styles";
 import Dialog from "@mui/material/Dialog";
@@ -7,7 +7,6 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
-import Typography from "@mui/material/Typography";
 
 import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
@@ -35,16 +34,22 @@ const FilteredChat = ({ open, setOpen }: any) => {
   };
 
   const filteredChatData = () => {
-    const startDate = new Date(value1);
-    const endDate = new Date(value2);
+    const startDate = value1 ? value1.toDate() : null;
+    const endDate = value2 ? value2.toDate() : null;
 
-    const year1 = startDate.getFullYear();
-    const month1 = (startDate.getMonth() + 1).toString().padStart(2, "0");
-    const day1 = startDate.getDate().toString().padStart(2, "0");
+    const year1 = startDate ? startDate.getFullYear() : null;
+    const month1 = startDate
+      ? (startDate.getMonth() + 1).toString().padStart(2, "0")
+      : null;
+    const day1 = startDate
+      ? startDate.getDate().toString().padStart(2, "0")
+      : null;
 
-    const year2 = endDate.getFullYear();
-    const month2 = (endDate.getMonth() + 1).toString().padStart(2, "0");
-    const day2 = endDate.getDate().toString().padStart(2, "0");
+    const year2 = endDate ? endDate.getFullYear() : null;
+    const month2 = endDate
+      ? (endDate.getMonth() + 1).toString().padStart(2, "0")
+      : null;
+    const day2 = endDate ? endDate.getDate().toString().padStart(2, "0") : null;
 
     // Construct the formatted date string in the format 'YYYY-MM-DD'
     const formattedStartDate = `${year1}-${month1}-${day1}`;
