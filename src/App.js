@@ -10,6 +10,8 @@ import Layout from "../src/layout/Layout.tsx";
 import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
 import Lead from "../src/pages/Dashborad/Lead.tsx";
 import ChatHistory from "./pages/Dashborad/ChatHistory.tsx";
+import SettingsSidebar from "./pages/Dashborad/SettingsSidebar.tsx";
+
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const theme = createTheme({
@@ -75,6 +77,14 @@ function App() {
               element={
                 <Aunthentication>
                   <ChatHistory />
+                </Aunthentication>
+              }
+            />
+            <Route
+              path="/settings"
+              element={
+                <Aunthentication>
+                  <SettingsSidebar />
                 </Aunthentication>
               }
             />

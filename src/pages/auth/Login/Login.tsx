@@ -33,8 +33,9 @@ const Login = () => {
         if (response.isRestricted === true) {
           toast.error("You are restricted to enter the site");
         } else {
-          console.log("admin", response.isAdmin);
+          console.log("admin", response);
           localStorage.setItem("chatbotId", response.data.user.chatbotId);
+          localStorage.setItem("token", response.data.token);
           response.success === true && response.isAdmin === 1
             ? navigate("/admin/dashboard")
             : navigate("/dashboard");

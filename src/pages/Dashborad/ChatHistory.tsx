@@ -10,12 +10,6 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import React, { useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import { DemoContainer, DemoItem } from "@mui/x-date-pickers/internals/demo";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DateRange } from "@mui/x-date-pickers-pro";
-import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import ChatPage from "../../components/ChatPage/ChatPage.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersConversation } from "../../services/slices/auth/users-conversation.tsx";
@@ -26,11 +20,6 @@ const ChatHistory = () => {
   const [selectedChat, setSelectedChat] = useState<any>(null);
   const [open, setOpen] = useState<boolean>(false);
   const [currentChatId, setCurrentChatId] = useState<any>(null);
-  // const [value, setValue] = useState<any>([
-  //   dayjs("2022-04-17"),
-  //   dayjs("2022-04-21"),
-  // ]);
-  // console.log("qqqqqqqqqqqqqqqqqqqqqqqqqq date ", value);
   const dispatch: any = useDispatch<any>();
   useEffect(() => {
     const chatbotId = localStorage.getItem("chatbotId");
@@ -82,51 +71,16 @@ const ChatHistory = () => {
             variant="outlined"
             className="btn-primary"
             onClick={() => setOpen(true)}
-            sx={{ color: "grey", borderColor: "black" }}
+            sx={{ color: "grey", borderColor: "1px solid black" }}
           >
             Pick Date
           </Button>
           <div className="ms-3">
             <Header />
           </div>
-          {/* <LocalizationProvider
-            dateAdapter={AdapterDayjs}
-            className="bg-white rounded-md pt-4"
-          >
-            <DateRangePicker
-              sx={{
-                ".css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input": {
-                  backgroundColor: "white",
-                },
-                ".css-1i41zlr-MuiFormLabel-root-MuiInputLabel-root": {
-                  lineHeight: "3.4375em",
-                },
-              }}
-              value={value}
-              onChange={(newValue: any) => setValue(newValue)}
-              renderInput={(startProps: any, endProps: any) => (
-                <>
-                  <input {...startProps.inputProps} className="text-white" />
-                  <input {...endProps.inputProps} className="text-white" />
-                </>
-              )}
-            />
-          </LocalizationProvider> */}
         </Grid>
       </Grid>
-      {/* <Typography
-        variant="h3"
-        gutterBottom
-        className="text-5xl text-white font-bold mb-6"
-      >
-        Chat History
-      </Typography>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateRangePicker
-          value={value}
-          onChange={(newValue: any) => setValue(newValue)}
-        />
-      </LocalizationProvider> */}
+
       <Card
         className="cs-shadow"
         sx={{
@@ -153,6 +107,7 @@ const ChatHistory = () => {
                     key={index}
                     onClick={() => handleChatSelect(notification?.id)}
                     className={currentChatId === notification.id ? 'activeChat' : 'commonChat'}
+                    sx={{ cursor: "pointer" }}
                   >
                     <TableCell>
                       <div className="p-1 heading">{notification.name}</div>

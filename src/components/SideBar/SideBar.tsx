@@ -7,6 +7,7 @@ import PersonIcon from "@mui/icons-material/Person";
 import { useLocation, useNavigate } from "react-router-dom";
 import MenuOpenIcon from "@mui/icons-material/MenuOpen";
 import MenuIcon from "@mui/icons-material/Menu";
+import SettingsApplicationsIcon from "@mui/icons-material/SettingsApplications";
 import { useSelector } from "react-redux";
 
 const SideBar = () => {
@@ -37,6 +38,11 @@ const SideBar = () => {
       name: "Chat History",
       icon: <ChatBubbleIcon />,
       navigateTo: "/chat-history",
+    },
+    {
+      name: "Settings",
+      icon: <SettingsApplicationsIcon />,
+      navigateTo: "/settings",
     },
   ];
 
