@@ -53,19 +53,18 @@ const SideBar = () => {
   return (
     <div
       style={{
-        width: collapsed ? "72px" : "280px",
+        width: collapsed ? "64px" : "280px",
         minHeight: "100vh",
-        borderRight: "4px solid",
         transition: "width 0.3s ease",
       }}
-      className="bg-white shadow-lg"
+      className="bg-black shadow-right2"
     >
-      <div className="flex justify-center items-center">
+      <div className="flex justify-between px-3 items-center">
         {!collapsed && (
-          <div className="flex flex-col justify-center items-center my-4 ">
-            <div className="text-4xl font-bold ">Chat-Base</div>
+          <div className="flex flex-col justify-center items-center my-4 text-white">
+            <div className="text-3xl font-semibold text-nowrap">Chat-Base</div>
             {isAdmin ? (
-              <div className="text-lg font-bold  underline">Admin</div>
+              <div className="text-lg font-bold underline">Admin</div>
             ) : (
               ""
             )}
@@ -74,16 +73,17 @@ const SideBar = () => {
         <IconButton
           sx={{ marginY: collapsed ? 2 : "" }}
           onClick={toggleCollapse}
+          className="cs-menu-toggle"
         >
           {collapsed ? (
             <MenuIcon className="" />
           ) : (
-            <MenuOpenIcon className="text-white" />
+            <MenuOpenIcon className="text-black" />
           )}
         </IconButton>
       </div>
 
-      <Divider sx={{ borderWidth: 1, borderColor: "gray" }} />
+      
       <Box component="nav" sx={{ flex: "1 1 auto", p: "12px" }}>
         {sideBarItems.map((item, index) => {
           const isActive = item.navigateTo === location.pathname;
@@ -92,13 +92,13 @@ const SideBar = () => {
               key={index}
               className={`p-2 mb-2  flex items-center gap-3 rounded-md ${
                 isActive
-                  ? "bg-[#E16349] text-white hover:bg-[#da745f] hover:text-white "
-                  : "text-black hover:cursor-pointer hover:bg-[#ee7e68] hover:text-white"
+                  ? "bg-gradient-primary text-white bg-gradient-primary-hover hover:text-white "
+                  : "text-white hover:cursor-pointer hover:text-white"
               }`}
               onClick={() => redirect(item.navigateTo)}
             >
               {item.icon}
-              {!collapsed && item.name}
+              <span className="text-nowrap">{!collapsed && item.name}</span>
             </div>
           );
         })}

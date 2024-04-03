@@ -41,12 +41,12 @@ const Header = ({ setAuthUser }) => {
   return (
     <div
       style={{
-        height: "74px",
+        height: "42px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
       }}
-      className="px-6 py-4 shadow-lg bg-white"
+      // className="px-6 py-4 shadow-right bg-white"
     >
       <div></div>
       <div className="flex items-center gap-4">

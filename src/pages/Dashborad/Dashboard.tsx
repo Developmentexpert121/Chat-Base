@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDashboardData } from "../../services/slices/auth/dashboard-data.tsx";
 import LineChartComponent from "./LineChartComponent.tsx";
 import { fetchAllLeads } from "../../services/slices/auth/leads.tsx";
+import Header from "../../components/Header/Header.tsx";
 
 // ChartJS.register(
 //   CategoryScale,
@@ -88,16 +89,20 @@ const Dashboard = () => {
   console.log("dashboardData ", dashboardData);
 
   return (
-    <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl text-white font-bold mb-6">Dashboard</div>
+    <Box sx={{ flexGrow: 1, px: 4, py: 4 }} className="p24px">
+      <div className="header-flex flex justify-between items-center cs-shadow">
+        <div className="heading-h2 font-bold mb-0 header-col-left leading-tight">Dashboard</div>
+        <div className="header-col-right ps-4">
+          <Header />
+        </div>
+      </div>
       <Grid container spacing={3}>
         <Grid item lg={8}>
           <Card
-            className="p-6 "
+            className="p-6 cs-shadow"
             sx={{
-              boxShadow: 2,
               borderColor: "grey",
-              borderWidth: 1,
+              borderWidth: 0,
             }}
           >
             {/* <Line options={options} data={data} /> */}
@@ -107,14 +112,13 @@ const Dashboard = () => {
         </Grid>
         <Grid item lg={4}>
           <Card
-            className="py-6 h-full flex flex-col items-center "
+            className="py-6 h-full flex flex-col items-center cs-shadow"
             sx={{
-              boxShadow: 2,
               borderColor: "grey",
-              borderWidth: 1,
+              borderWidth: 0,
             }}
           >
-            <div className="text-2xl font-bold pb-6 ">Notifications</div>
+            <div className="text-2xl font-bold pb-6 w-full px-5">Notifications</div>
             <Divider sx={{ width: "100%" }} />
             <Table>
               <TableBody>

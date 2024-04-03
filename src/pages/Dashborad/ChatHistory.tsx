@@ -20,10 +20,12 @@ import ChatPage from "../../components/ChatPage/ChatPage.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsersConversation } from "../../services/slices/auth/users-conversation.tsx";
 import FilteredChat from "./filteredChat.tsx";
+import Header from "../../components/Header/Header.tsx";
 
 const ChatHistory = () => {
   const [selectedChat, setSelectedChat] = useState<any>(null);
   const [open, setOpen] = useState<boolean>(false);
+  const [currentChatId, setCurrentChatId] = useState<any>(null);
   // const [value, setValue] = useState<any>([
   //   dayjs("2022-04-17"),
   //   dayjs("2022-04-21"),
@@ -50,6 +52,7 @@ const ChatHistory = () => {
       return item.id === id;
     });
     setSelectedChat(filteredChat);
+    setCurrentChatId(id);
   };
 
   const chat = conversationData?.data
@@ -64,8 +67,8 @@ const ChatHistory = () => {
 
   return (
     <Box sx={{ px: 4, py: 4 }} className="content-height">
-      <Grid container spacing={3} className="mb-3">
-        <Grid item xs={6}>
+      <Grid container spacing={3} className="mb-3 mx-0 header-flex cs-shadow">
+        <Grid item xs={6} className="header-col-left">
           <Typography
             variant="h2"
             gutterBottom
@@ -74,14 +77,18 @@ const ChatHistory = () => {
             Chat History
           </Typography>
         </Grid>
-        <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Grid item xs={6} sx={{ display: "flex", justifyContent: "flex-end" }} className="header-col-right">
           <Button
             variant="outlined"
+            className="btn-primary"
             onClick={() => setOpen(true)}
             sx={{ color: "grey", borderColor: "black" }}
           >
             Pick Date
           </Button>
+          <div className="ms-3">
+            <Header />
+          </div>
           {/* <LocalizationProvider
             dateAdapter={AdapterDayjs}
             className="bg-white rounded-md pt-4"
@@ -121,21 +128,19 @@ const ChatHistory = () => {
         />
       </LocalizationProvider> */}
       <Card
+        className="cs-shadow"
         sx={{
-          boxShadow: 2,
           borderColor: "grey",
           borderWidth: 1,
           display: "flex",
           flexDirection: "row",
-          height: "90%",
+          height: "calc(100% - 103px)",
         }}
       >
         <Box
           sx={{
-            flex: "20%",
+            flex: "30%",
             overflowX: "auto",
-            borderRight: 3,
-            borderRightColor: "lightgrey",
             height: "100%",
           }}
         >
@@ -147,10 +152,9 @@ const ChatHistory = () => {
                     hover
                     key={index}
                     onClick={() => handleChatSelect(notification?.id)}
+                    className={currentChatId === notification.id ? 'activeChat' : 'commonChat'}
                   >
-                    <TableCell
-                    // sx={{ borderBottom: index === chat.length - 1 ? 0 : "" }}
-                    >
+                    <TableCell>
                       <div className="p-1 heading">{notification.name}</div>
                     </TableCell>
                   </TableRow>
@@ -158,7 +162,7 @@ const ChatHistory = () => {
             </TableBody>
           </Table>
         </Box>
-        <Box sx={{ flex: "80%" }}>
+        <Box sx={{ flex: "70%" }}>
           <ChatPage selectedChat={selectedChat} />
         </Box>
       </Card>

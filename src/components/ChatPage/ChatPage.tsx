@@ -38,7 +38,7 @@ const ChatPage = ({ selectedChat }) => {
     <Box sx={{ height: "100%" }}>
       {selectedChat ? (
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
-          <Box className="h-[80px] flex justify-between items-center border-b-2 px-6 bg-gray-200">
+          <Box className="py-3 flex justify-between items-center border-b-2 px-6 bg-white shadow">
             <Box className="flex justify-between items-center gap-4 text-2xl font-bold">
               <Avatar />
               {selectedChat ? selectedChat?.name : "Header"}
@@ -51,6 +51,7 @@ const ChatPage = ({ selectedChat }) => {
             sx={{ flexGrow: 1, overflowY: "auto" }}
             ref={chatRef}
             onScroll={handleScroll}
+            className="bg-gray-100 p-4 chat-bg"
           >
             {isLoading && (
               <Box className="flex justify-center items-center">
@@ -64,19 +65,19 @@ const ChatPage = ({ selectedChat }) => {
               .map((chats: any, index: any) => (
                 <Box
                   key={index}
-                  className={`mt-4 mx-2 gap-2 ${
+                  className={`mt-4 mx-2 gap-2 max-w-75p ${
                     chats.role === "user"
-                      ? "flex justify-end items-end"
+                      ? "flex justify-end items-end ml-auto"
                       : "flex justify-start items-end"
                   }`}
                 >
                   {chats.role !== "user" && (
-                    <Avatar sx={{ width: 24, height: 24 }} />
+                    <Avatar sx={{ width: 32, height: 32 }} />
                   )}
                   <Box
                     className={`border p-2 ${
                       chats.role === "user"
-                        ? "bg-black text-white border-white"
+                        ? "bg-gradient-primary text-white border-white"
                         : " bg-white text-black border-white"
                     }`}
                     sx={{
@@ -90,23 +91,26 @@ const ChatPage = ({ selectedChat }) => {
                     {chats?.content}
                   </Box>
                   {chats.role === "user" && (
-                    <Avatar sx={{ width: 24, height: 24 }} />
+                    <Avatar sx={{ width: 32, height: 32 }} />
                   )}
                 </Box>
               ))}
           </Box>
-          <Box className="h-[60px] flex justify-between items-center border-t-2 px-6 py-3 bg-gray-200 gap-4">
+          <Box className="h-[70px] flex justify-between items-center border-t-2 px-6 py-4 bg-white gap-4">
             <TextField
               fullWidth
               id="message"
               size="small"
               sx={{
                 bgcolor: "white",
-                borderRadius: "20px",
+                borderRadius: "10px",
+                outline: 'none',
+                border: 'none'
               }}
             />
             <Box className="flex justify-end">
               <Button
+              className="btn-primary"
                 variant="contained"
                 sx={{
                   backgroundColor: "black",

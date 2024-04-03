@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchAllLeads } from "../../services/slices/auth/leads.tsx";
 // import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Header from "../../components/Header/Header.tsx";
 
 // const lead = [
 //   {
@@ -70,12 +71,16 @@ const Lead = () => {
   ];
 
   return (
-    <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl text-white font-bold mb-6">Lead</div>
-
+    <Box sx={{ flexGrow: 1, px: 4, py: 4 }}  className="p24px">
+      <div className="header-flex flex justify-between items-center cs-shadow">
+        <div className="heading-h2 font-bold mb-0 header-col-left leading-tight">Lead</div>
+        <div className="header-col-right ps-4">
+          <Header />
+        </div>
+      </div>
       <Card
+      className="cs-shadow border-0" 
         sx={{
-          boxShadow: 2,
           borderColor: "grey",
           borderWidth: 1,
         }}
@@ -121,8 +126,9 @@ const Lead = () => {
               })}
             </TableBody>
           </Table> */}
-          <div style={{ height: 400, width: "100%" }}>
+          <div style={{ height: "calc(100vh - 169px)", width: "100%" }}>
             <DataGrid
+            className="cs-table"
               rows={formattedData}
               columns={columns}
               initialState={{

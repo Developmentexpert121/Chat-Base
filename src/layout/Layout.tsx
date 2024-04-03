@@ -40,8 +40,9 @@ const Layout = ({ children }) => {
             flex: "1 1 auto",
             flexDirection: "column",
           }}
+          className="content-right"
         >
-          {authUser && isAllowedRoute() && <Header setAuthUser={setAuthUser} />}
+          {/* {authUser && isAllowedRoute() && <Header setAuthUser={setAuthUser} />} */}
           {children}
         </Box>
       </Box>
