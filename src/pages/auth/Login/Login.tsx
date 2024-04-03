@@ -29,10 +29,12 @@ const Login = () => {
     dispatch(userLogin(data))
       .unwrap()
       .then((response: any) => {
+        console.log("response ", response);
         if (response.isRestricted === true) {
           toast.error("You are restricted to enter the site");
         } else {
           console.log("admin", response.isAdmin);
+          localStorage.setItem("chatbotId", response.data.user.chatbotId);
           response.success === true && response.isAdmin === 1
             ? navigate("/admin/dashboard")
             : navigate("/dashboard");

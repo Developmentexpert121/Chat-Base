@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
     );
   };
   return authUser !== null ? (
-    <Box className="bg-gradient-to-b from-[#0F0448] via-[#2D229E] to-[#4E36D6]">
+    <Box className="bg-gray-100 text-black">
       <Box
         sx={{
           display: "flex",

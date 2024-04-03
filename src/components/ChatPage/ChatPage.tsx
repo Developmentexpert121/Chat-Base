@@ -10,75 +10,6 @@ import React, { useEffect, useRef, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import SendIcon from "@mui/icons-material/Send";
 
-const chat = [
-  {
-    chatt: "hello",
-    sentByMe: true,
-  },
-
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: true,
-  },
-  {
-    chatt: "hello",
-    sentByMe: true,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: true,
-  },
-
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-  {
-    chatt: "hello",
-    sentByMe: false,
-  },
-];
-
 const ChatPage = ({ selectedChat }) => {
   const chatRef: any = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -110,7 +41,7 @@ const ChatPage = ({ selectedChat }) => {
           <Box className="h-[80px] flex justify-between items-center border-b-2 px-6 bg-gray-200">
             <Box className="flex justify-between items-center gap-4 text-2xl font-bold">
               <Avatar />
-              {selectedChat ? selectedChat.name : "Header"}
+              {selectedChat ? selectedChat?.name : "Header"}
             </Box>
             <IconButton sx={{ color: "black" }}>
               <MoreVertIcon />
@@ -128,39 +59,41 @@ const ChatPage = ({ selectedChat }) => {
                 />
               </Box>
             )}
-            {chat.slice(0, loadedMessages).map((chats: any, index: any) => (
-              <Box
-                key={index}
-                className={`mt-4 mx-2 gap-2 ${
-                  chats.sentByMe
-                    ? "flex justify-end items-end"
-                    : "flex justify-start items-end"
-                }`}
-              >
-                {chats.sentByMe !== true && (
-                  <Avatar sx={{ width: 24, height: 24 }} />
-                )}
+            {selectedChat?.[0].messages
+              .slice(0, loadedMessages)
+              .map((chats: any, index: any) => (
                 <Box
-                  className={`border p-2 ${
-                    chats.sentByMe
-                      ? "bg-white text-black border-black"
-                      : " bg-black text-white border-black"
+                  key={index}
+                  className={`mt-4 mx-2 gap-2 ${
+                    chats.role === "user"
+                      ? "flex justify-end items-end"
+                      : "flex justify-start items-end"
                   }`}
-                  sx={{
-                    borderRadius: "10px",
-                    borderBottomRightRadius:
-                      chats.sentByMe === true ? "2px" : "",
-                    borderBottomLeftRadius:
-                      chats.sentByMe === true ? "" : "2px",
-                  }}
                 >
-                  {chats.chatt}
+                  {chats.role !== "user" && (
+                    <Avatar sx={{ width: 24, height: 24 }} />
+                  )}
+                  <Box
+                    className={`border p-2 ${
+                      chats.role === "user"
+                        ? "bg-black text-white border-white"
+                        : " bg-white text-black border-white"
+                    }`}
+                    sx={{
+                      borderRadius: "10px",
+                      borderBottomRightRadius:
+                        chats.role === "user" ? "2px" : "",
+                      borderBottomLeftRadius:
+                        chats.role === "user" ? "" : "2px",
+                    }}
+                  >
+                    {chats?.content}
+                  </Box>
+                  {chats.role === "user" && (
+                    <Avatar sx={{ width: 24, height: 24 }} />
+                  )}
                 </Box>
-                {chats.sentByMe === true && (
-                  <Avatar sx={{ width: 24, height: 24 }} />
-                )}
-              </Box>
-            ))}
+              ))}
           </Box>
           <Box className="h-[60px] flex justify-between items-center border-t-2 px-6 py-3 bg-gray-200 gap-4">
             <TextField

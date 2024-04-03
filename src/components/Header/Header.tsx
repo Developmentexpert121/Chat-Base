@@ -46,7 +46,7 @@ const Header = ({ setAuthUser }) => {
         justifyContent: "space-between",
         alignItems: "center",
       }}
-      className="px-6 pb-4 pt-6"
+      className="px-6 py-4 shadow-lg bg-white"
     >
       <div></div>
       <div className="flex items-center gap-4">

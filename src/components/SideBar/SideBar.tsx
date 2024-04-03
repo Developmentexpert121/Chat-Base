@@ -58,16 +58,14 @@ const SideBar = () => {
         borderRight: "4px solid",
         transition: "width 0.3s ease",
       }}
-      className="bg-[#240E64]"
+      className="bg-white shadow-lg"
     >
       <div className="flex justify-center items-center">
         {!collapsed && (
           <div className="flex flex-col justify-center items-center my-4 ">
-            <div className="text-4xl font-bold text-white">Chat-Base</div>
+            <div className="text-4xl font-bold ">Chat-Base</div>
             {isAdmin ? (
-              <div className="text-lg font-bold text-white underline">
-                Admin
-              </div>
+              <div className="text-lg font-bold  underline">Admin</div>
             ) : (
               ""
             )}
@@ -78,7 +76,7 @@ const SideBar = () => {
           onClick={toggleCollapse}
         >
           {collapsed ? (
-            <MenuIcon className="text-white" />
+            <MenuIcon className="" />
           ) : (
             <MenuOpenIcon className="text-white" />
           )}
@@ -92,10 +90,10 @@ const SideBar = () => {
           return (
             <div
               key={index}
-              className={`p-2 mb-2 text-white flex items-center gap-3 rounded-md ${
+              className={`p-2 mb-2  flex items-center gap-3 rounded-md ${
                 isActive
-                  ? "bg-[#E16349] text-white hover:bg-[#da745f] "
-                  : "text-black hover:cursor-pointer hover:bg-[#ee7e68] "
+                  ? "bg-[#E16349] text-white hover:bg-[#da745f] hover:text-white "
+                  : "text-black hover:cursor-pointer hover:bg-[#ee7e68] hover:text-white"
               }`}
               onClick={() => redirect(item.navigateTo)}
             >

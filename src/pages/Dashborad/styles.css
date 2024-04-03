@@ -3,3 +3,31 @@
   font-family: "Poppins";
   color: "#333";
 }
+body {
+  overflow: hidden;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #ccc;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #e16349;
+}
+.content-height {
+  height: calc(100vh - 74px);
+  overflow-y: auto;
+}
+.heading-h2 {
+  font-size: 42px !important;
+  font-weight: 500 !important;
+}
+.mb-0 {
+  margin-bottom: 0 !important;
+}

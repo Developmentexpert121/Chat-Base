@@ -8,6 +8,8 @@ import inviteUserSlice from "./slices/admin/invite-user.tsx";
 import updateRestrictionsSlice from "./slices/admin/update-restricted.tsx";
 import fetchAllLeadsSlice from "./slices/auth/leads.tsx";
 import getEmailSlice from "./slices/auth/getEmail.tsx";
+import usersConversationSlice from "./slices/auth/users-conversation.tsx";
+import dashboardSlice from "./slices/auth/dashboard-data.tsx";
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +22,8 @@ export const store = configureStore({
     inviteUser: inviteUserSlice,
     updateRestrictions: updateRestrictionsSlice,
     getEmail: getEmailSlice,
+    usersConversation: usersConversationSlice,
+    dashboardData: dashboardSlice,
   },
 });
 
