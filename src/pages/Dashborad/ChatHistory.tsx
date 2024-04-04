@@ -56,7 +56,7 @@ const ChatHistory = () => {
 
   return (
     <Box sx={{ px: 4, py: 4 }} className="content-height">
-      <Grid container spacing={3} className="mb-3 mx-0 header-flex cs-shadow">
+      <Grid container spacing={3} className="mb-3 mx-0 header-flex cs-shadow cs-chathis-header">
         <Grid item xs={6} className="header-col-left">
           <Typography
             variant="h2"
@@ -82,7 +82,7 @@ const ChatHistory = () => {
       </Grid>
 
       <Card
-        className="cs-shadow"
+        className="cs-shadow cs-chatbox"
         sx={{
           borderColor: "grey",
           borderWidth: 1,
@@ -92,6 +92,7 @@ const ChatHistory = () => {
         }}
       >
         <Box
+          className="cs-chatbox-left"
           sx={{
             flex: "30%",
             overflowX: "auto",
@@ -117,7 +118,7 @@ const ChatHistory = () => {
             </TableBody>
           </Table>
         </Box>
-        <Box sx={{ flex: "70%" }}>
+        <Box sx={{ flex: "70%" }} className="cs-chatbox-right">
           <ChatPage selectedChat={selectedChat} />
         </Box>
       </Card>

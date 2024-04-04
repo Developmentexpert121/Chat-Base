@@ -89,7 +89,7 @@ const Dashboard = () => {
   console.log("dashboardData ", dashboardData);
 
   return (
-    <Box sx={{ flexGrow: 1, px: 4, py: 4 }} className="p24px">
+    <Box sx={{ flexGrow: 1, px: 4, py: 4 }} className="p24px h-screen overflow-auto">
       <div className="header-flex flex justify-between items-center cs-shadow">
         <div className="heading-h2 font-bold mb-0 header-col-left leading-tight">Dashboard</div>
         <div className="header-col-right ps-4">
@@ -97,7 +97,7 @@ const Dashboard = () => {
         </div>
       </div>
       <Grid container spacing={3}>
-        <Grid item lg={8}>
+        <Grid item lg={8} xs={12}>
           <Card
             className="p-6 cs-shadow"
             sx={{
@@ -110,7 +110,7 @@ const Dashboard = () => {
             <LineChartComponent chartData={dashboardData} />
           </Card>
         </Grid>
-        <Grid item lg={4}>
+        <Grid item lg={4} xs={12}>
           <Card
             className="py-6 h-full flex flex-col items-center cs-shadow"
             sx={{

@@ -128,3 +128,46 @@ body .MuiDataGrid-columnHeaders > div[role="row"] {
 .commonChat:hover td.MuiTableCell-root, .activeChat td.MuiTableCell-root {
   color: #fff !important;
 }
+
+@media (min-width: 901px) {
+  .mobile-opened-menu .mobile-w-0 {
+    width: 0;
+    visibility: hidden;
+  }
+}
+@media (max-width: 900.98px) {
+  .mobile-closed-menu .mobile-w-0 {
+    width: 0;
+    overflow: hidden;
+  }
+  .mobile-closed-menu {
+    width: 64px !important;
+  }
+  .mobile-opened-menu {
+    width: 280px !important;
+}
+}
+
+@media (max-width: 767.98px) {
+  .header-col-left {
+    width: calc(100% - 60px);
+}
+}
+@media (max-width: 599.98px) {
+.heading-h2 {
+  font-size: 26px !important;
+  font-weight: 600 !important;
+}
+.cs-chathis-header .header-col-left, .cs-chathis-header .header-col-right {
+  width: 100%;
+  max-width: none;
+  flex-basis: auto;
+}
+.cs-chathis-header {
+  gap: 15px;
+}
+.cs-chathis-header .header-col-right {
+  padding-left: 0;
+  justify-content: space-between;
+}
+}

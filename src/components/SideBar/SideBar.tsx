@@ -63,12 +63,12 @@ const SideBar = () => {
         minHeight: "100vh",
         transition: "width 0.3s ease",
       }}
-      className="bg-black shadow-right2"
+      className={"bg-black shadow-right2 sidebar-menuu" + (collapsed ? " mobile-opened-menu" : " mobile-closed-menu")}
     >
       <div className="flex justify-between px-3 items-center">
-        {!collapsed && (
+        {(
           <div className="flex flex-col justify-center items-center my-4 text-white">
-            <div className="text-3xl font-semibold text-nowrap">Chat-Base</div>
+            <div className="text-3xl font-semibold text-nowrap mobile-w-0">Chat-Base</div>
             {isAdmin ? (
               <div className="text-lg font-bold underline">Admin</div>
             ) : (
@@ -104,7 +104,7 @@ const SideBar = () => {
               onClick={() => redirect(item.navigateTo)}
             >
               {item.icon}
-              <span className="text-nowrap">{!collapsed && item.name}</span>
+              <span className="text-nowrap mobile-w-0">{item.name}</span>
             </div>
           );
         })}
