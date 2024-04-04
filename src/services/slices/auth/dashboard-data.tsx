@@ -33,6 +33,38 @@ export const addSettingsData: any = createAsyncThunk(
   }
 );
 
+export const stopCronSettings: any = createAsyncThunk(
+  "dashboard/stopCronSettings",
+  async () => {
+    try {
+      const response = await http.post("/standard/cron_manager/stopCron");
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return { error: "Bad Request" };
+      }
+    }
+  }
+);
+
+export const scheduleCronSettings: any = createAsyncThunk(
+  "dashboard/scheduleCronSettings",
+  async () => {
+    try {
+      const response = await http.post("/standard/cron_manager/schedulecron");
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return { error: "Bad Request" };
+      }
+    }
+  }
+);
+
 export const dashboardSlice = createSlice({
   name: "dashboard",
   initialState: {
