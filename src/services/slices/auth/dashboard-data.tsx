@@ -33,12 +33,32 @@ export const addSettingsData: any = createAsyncThunk(
   }
 );
 
+export const getScheduleCronUser: any = createAsyncThunk(
+  "dashboard/grtScheduleCronUser",
+  async () => {
+    try {
+      const response = await http.get(
+        "/standard/cron_manager/schedulecronUser"
+      );
+      if (response.status === 200) {
+        return response.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return { error: "Bad Request" };
+      }
+    }
+  }
+);
+
 export const stopCronSettings: any = createAsyncThunk(
   "dashboard/stopCronSettings",
-  async () => {
+  async (data, { dispatch }: any) => {
+    console.log("status ", data);
     try {
       const response = await http.post("/standard/cron_manager/stopCron");
       if (response.status === 200) {
+        dispatch(getScheduleCronUser());
         return response.data;
       }
     } catch (error) {
@@ -51,10 +71,13 @@ export const stopCronSettings: any = createAsyncThunk(
 
 export const scheduleCronSettings: any = createAsyncThunk(
   "dashboard/scheduleCronSettings",
-  async () => {
+  async (data, { dispatch }: any) => {
+    console.log("responsre 999999999999999999999999999999", data);
     try {
       const response = await http.post("/standard/cron_manager/schedulecron");
       if (response.status === 200) {
+        console.log("responsre 999999999999999999999999999999", response);
+        dispatch(getScheduleCronUser());
         return response.data;
       }
     } catch (error) {
@@ -71,6 +94,7 @@ export const dashboardSlice = createSlice({
     loading: false,
     data: [],
     cronData: [],
+    cronUser: {},
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -95,6 +119,17 @@ export const dashboardSlice = createSlice({
         state.loading = false;
       })
       .addCase(addSettingsData.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(getScheduleCronUser.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getScheduleCronUser.fulfilled, (state, action) => {
+        state.cronUser = action.payload.data;
+        state.loading = false;
+      })
+      .addCase(getScheduleCronUser.rejected, (state, action) => {
         state.loading = false;
       });
   },

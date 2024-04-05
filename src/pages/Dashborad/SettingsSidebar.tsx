@@ -19,6 +19,7 @@ import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
 import {
   addSettingsData,
+  getScheduleCronUser,
   scheduleCronSettings,
   stopCronSettings,
 } from "../../services/slices/auth/dashboard-data.tsx";
@@ -58,16 +59,47 @@ interface FormData {
 
 const SettingsSidebar = () => {
   const dispatch: any = useDispatch<any>();
-  const [hours, setHours] = useState<string | number>("");
   const [open, setOpen] = useState(false);
   const [stats, setStats] = useState<boolean>(false);
-  const [selectedDays, setSelectedDays] = useState<any>([]);
   const numbers = Array.from({ length: 24 }, (_, index) => index + 1);
 
-  const handleChange = (event: SelectChangeEvent<typeof hours>) => {
-    setHours(event.target.value);
-  };
+  const {
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm({
+    defaultValues,
+    resolver: yupResolver(schema),
+  });
+  useEffect(() => {
+    dispatch(getScheduleCronUser())
+      .unwrap()
+      .then((res: any) => {
+        const values = JSON.parse(res.data.values);
+        console.log("oooooooooooooooooooooooooooo", values);
+        setValue("email", res.data.emailTo);
+        setValue("hours", values.hours);
 
+        const selectedDays: any = values.selectedDays || []; // Ensure selectedDays is an array
+        const selectedDaysObj: any = [];
+        selectedDays.forEach((item: any) => {
+          selectedDaysObj[item] = true;
+        });
+        setValue("daysOfWeek", selectedDaysObj);
+
+        console.log("received response ", res);
+      });
+  }, [dispatch, setValue]);
+
+  console.log("watchhhhhhhhhhhhhh ", watch("daysOfWeek"));
+
+  const croneUserData = useSelector(
+    (state: any) => state.dashboardData.cronUser
+  );
+
+  console.log("croneUserDatacroneUserData ", croneUserData);
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -79,13 +111,13 @@ const SettingsSidebar = () => {
   ];
 
   const handleStop = () => {
-    dispatch(stopCronSettings());
+    dispatch(stopCronSettings({ status: true }));
   };
 
   const handleStartCron = () => {
     setStats(true);
     const fetchData = async () => {
-      dispatch(scheduleCronSettings());
+      dispatch(scheduleCronSettings({ status: true }));
     };
     fetchData();
     // Set up an interval to call the API every 5 minutes
@@ -94,25 +126,22 @@ const SettingsSidebar = () => {
     return () => clearInterval(interval);
   };
 
-  const {
-    handleSubmit,
-    control,
-    watch,
-    formState: { errors },
-  } = useForm({
-    defaultValues,
-    resolver: yupResolver(schema),
-  });
-
-  const onSubmit = (data: FormData) => {
+  const onSubmit: any = (data: FormData) => {
+    console.log("dataaaaaaaaaaaaaa ", data);
     const indexedData = data.daysOfWeek
       .map((item: any, index: number) => (item === true ? index : ""))
       .filter((index: any) => index !== "");
     const values = { hours: data.hours, selectedDays: indexedData };
     dispatch(
-      addSettingsData({ values: values, emailTo: data.email, status: stats })
+      addSettingsData({
+        values: values,
+        emailTo: data.email,
+        status: croneUserData.status ?? stats,
+      })
     );
   };
+
+  console.log("watchhhhhhhhhhhhhhhhhhhhhhhhh ", watch("daysOfWeek"));
 
   return (
     <Box sx={{ px: 4, py: 4 }} className="content-height">
@@ -271,7 +300,9 @@ const SettingsSidebar = () => {
                       defaultValue={false}
                       render={({ field }) => (
                         <FormControlLabel
-                          control={<Checkbox {...field} />}
+                          control={
+                            <Checkbox {...field} checked={!!field.value} />
+                          }
                           label={day}
                         />
                       )}
@@ -308,22 +339,25 @@ const SettingsSidebar = () => {
                 xs={4}
                 sx={{ display: "flex", justifyContent: "flex-center" }}
               >
-                <Button
-                  variant="contained"
-                  color="success"
-                  sx={{ width: 100, mr: 4 }}
-                  onClick={() => handleStartCron()}
-                >
-                  Start
-                </Button>
-                <Button
-                  variant="contained"
-                  color="error"
-                  sx={{ width: 100 }}
-                  onClick={() => handleStop()}
-                >
-                  Stop
-                </Button>
+                {croneUserData.status === 0 ? (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    sx={{ width: 150, mr: 4 }}
+                    onClick={() => handleStartCron()}
+                  >
+                    Start
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="error"
+                    sx={{ width: 150 }}
+                    onClick={() => handleStop()}
+                  >
+                    Stop
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </form>
