@@ -9,7 +9,7 @@ import {
   Popover,
   Typography,
 } from "@mui/material";
-import React,  { useState } from "react";
+import React, { useState } from "react";
 import { GearSix as GearSixIcon } from "@phosphor-icons/react/dist/ssr/GearSix";
 import { SignOut as SignOutIcon } from "@phosphor-icons/react/dist/ssr/SignOut";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
@@ -29,10 +29,12 @@ const Header = ({ setAuthUser }) => {
 
   const isAdmin = useSelector((state: any) => state.login.isAdmin);
   const toggleCollapse = () => {
-    console.log("hiiii")
+    console.log("hiiii");
     dispatch(collapsedSideBar(true));
     setCollapsed(!collapsed);
   };
+
+  const userData: any = useSelector((state: any) => state.login.userData);
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,7 +50,7 @@ const Header = ({ setAuthUser }) => {
   const handleLogout = () => {
     localStorage.clear();
     navigate("/");
-    setAuthUser(false);
+    //setAuthUser(false);
   };
 
   return (
@@ -62,7 +64,7 @@ const Header = ({ setAuthUser }) => {
       // className="px-6 py-4 shadow-right bg-white"
     >
       <div className="menu-ham-header">
-      <IconButton
+        <IconButton
           sx={{ marginY: collapsed ? 2 : "" }}
           onClick={toggleCollapse}
           className="cs-menu-toggle"
@@ -97,9 +99,11 @@ const Header = ({ setAuthUser }) => {
           }}
         >
           <Box sx={{ p: "16px 20px " }}>
-            <Typography variant="subtitle1">Henry</Typography>
+            <Typography variant="subtitle1">
+              {userData?.user?.firstName + " " + userData?.user?.lastName}
+            </Typography>
             <Typography color="text.secondary" variant="body2">
-              henry@chatbase.com
+              {userData?.user?.email}
             </Typography>
           </Box>
           <Divider />

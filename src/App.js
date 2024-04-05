@@ -46,7 +46,6 @@ const App = () => {
   const isAdminUser = useSelector((state) => state.login.isAdmin);
   const activityLoader = useSelector((state) => state.activityLoader.loading);
 
-  console.log("is admin ", isAdminUser);
   return (
     <div>
       {activityLoader ? (

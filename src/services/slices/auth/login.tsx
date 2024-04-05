@@ -42,11 +42,13 @@ export const checkAuth: any = createAsyncThunk("auth/checkAuth", async () => {
 export interface Login {
   loading: boolean;
   isAdmin: boolean;
+  userData: any;
 }
 
 const initialState: Login = {
   loading: false,
   isAdmin: false,
+  userData: {},
 };
 
 export const loginSlice = createSlice({
@@ -73,6 +75,7 @@ export const loginSlice = createSlice({
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.isAdmin = action?.payload?.user?.isAdmin;
+        state.userData = action?.payload;
         state.loading = false;
       })
       .addCase(checkAuth.rejected, (state, action) => {
