@@ -11,9 +11,9 @@ import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
 import Lead from "../src/pages/Dashborad/Lead.tsx";
 import ChatHistory from "./pages/Dashborad/ChatHistory.tsx";
 import SettingsSidebar from "./pages/Dashborad/SettingsSidebar.tsx";
-
+import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material";
-
+import Spinner from "./services/loader/spinner.tsx";
 const theme = createTheme({
   typography: {
     fontFamily: "Poppins, sans-serif",
@@ -29,78 +29,79 @@ const theme = createTheme({
   },
 });
 
-function App() {
+const App = () => {
   const Aunthentication = ({ children }) => {
     const token = localStorage.getItem("token");
     return token ? children : <Navigate to="/" replace={true} />;
   };
-  return (
-    <div
-      style={
-        {
-          // backgroundImage: `url('./assets/bglandscape.jpg')`,
-          // backgroundSize: "cover",
-          // minHeight: "100vh",
-        }
-      }
-    >
-      <ThemeProvider theme={theme}>
-        <Toaster />
-        <Layout>
-          <Routes>
-            <Route path="/signup/:token" element={<SignUp />} />
-            <Route path="/" element={<Login />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/reset-password/:token" element={<ResetPassword />} />
-            <Route path="/admin/login" element={<LoginAdmin />} />
-          </Routes>
 
-          <Routes>
-            <Route
-              path="/dashboard"
-              element={
-                <Aunthentication>
-                  <Dashboard />
-                </Aunthentication>
-              }
-            />
-            <Route
-              path="/lead"
-              element={
-                <Aunthentication>
-                  <Lead />
-                </Aunthentication>
-              }
-            />
-            <Route
-              path="/chat-history"
-              element={
-                <Aunthentication>
-                  <ChatHistory />
-                </Aunthentication>
-              }
-            />
-            <Route
-              path="/settings"
-              element={
-                <Aunthentication>
-                  <SettingsSidebar />
-                </Aunthentication>
-              }
-            />
-            <Route
-              path="/admin/dashboard"
-              element={
-                <Aunthentication>
-                  <AdminDashboard />
-                </Aunthentication>
-              }
-            />
-          </Routes>
-        </Layout>
-      </ThemeProvider>
+  const activityLoader = useSelector((state) => state.activityLoader.loading);
+  return (
+    <div>
+      {activityLoader ? (
+        <Spinner />
+      ) : (
+        <ThemeProvider theme={theme}>
+          <Toaster />
+          <Layout>
+            <Routes>
+              <Route path="/signup/:token" element={<SignUp />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route
+                path="/reset-password/:token"
+                element={<ResetPassword />}
+              />
+              <Route path="/admin/login" element={<LoginAdmin />} />
+            </Routes>
+
+            <Routes>
+              <Route
+                path="/dashboard"
+                element={
+                  <Aunthentication>
+                    <Dashboard />
+                  </Aunthentication>
+                }
+              />
+              <Route
+                path="/lead"
+                element={
+                  <Aunthentication>
+                    <Lead />
+                  </Aunthentication>
+                }
+              />
+              <Route
+                path="/chat-history"
+                element={
+                  <Aunthentication>
+                    <ChatHistory />
+                  </Aunthentication>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <Aunthentication>
+                    <SettingsSidebar />
+                  </Aunthentication>
+                }
+              />
+              <Route
+                path="/admin/dashboard"
+                element={
+                  <Aunthentication>
+                    <AdminDashboard />
+                  </Aunthentication>
+                }
+              />
+            </Routes>
+          </Layout>
+        </ThemeProvider>
+      )}
     </div>
   );
-}
+};
 
 export default App;

@@ -17,8 +17,6 @@ const SideBar = () => {
   const [collapsed, setCollapsed] = useState(false);
 
   const isAdmin = useSelector((state: any) => state.login.isAdmin);
-  console.log("ADMINNNNNNN", isAdmin);
-
   const toggleCollapse = () => {
     setCollapsed(!collapsed);
   };
@@ -63,19 +61,24 @@ const SideBar = () => {
         minHeight: "100vh",
         transition: "width 0.3s ease",
       }}
-      className={"bg-black shadow-right2 sidebar-menuu" + (collapsed ? " mobile-opened-menu" : " mobile-closed-menu")}
+      className={
+        "bg-black shadow-right2 sidebar-menuu" +
+        (collapsed ? " mobile-opened-menu" : " mobile-closed-menu")
+      }
     >
       <div className="flex justify-between px-3 items-center">
-        {(
+        {
           <div className="flex flex-col justify-center items-center my-4 text-white">
-            <div className="text-3xl font-semibold text-nowrap mobile-w-0">Chat-Base</div>
+            <div className="text-3xl font-semibold text-nowrap mobile-w-0">
+              Chat-Base
+            </div>
             {isAdmin ? (
               <div className="text-lg font-bold underline">Admin</div>
             ) : (
               ""
             )}
           </div>
-        )}
+        }
         <IconButton
           sx={{ marginY: collapsed ? 2 : "" }}
           onClick={toggleCollapse}
@@ -89,7 +92,6 @@ const SideBar = () => {
         </IconButton>
       </div>
 
-      
       <Box component="nav" sx={{ flex: "1 1 auto", p: "12px" }}>
         {sideBarItems.map((item, index) => {
           const isActive = item.navigateTo === location.pathname;

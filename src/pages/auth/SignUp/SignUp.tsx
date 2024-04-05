@@ -43,8 +43,6 @@ const SignUp = () => {
     resolver: yupResolver(schema),
   });
 
-  console.log("errorserrors ", errors);
-
   const onSubmit = async (data: any) => {
     await dispatch(
       userSignUp({
@@ -71,7 +69,6 @@ const SignUp = () => {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
   };
-  console.log(phone);
 
   return (
     <div className="flex w-full h-screen justify-center items-center">

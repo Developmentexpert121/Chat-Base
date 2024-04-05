@@ -7,7 +7,22 @@ export const fetchAllLeads: any = createAsyncThunk(
     try {
       const response = await api.get("/users/getAllChatbots");
       if (response.status === 200) {
-        console.log(response);
+        return response.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return { error: "Bad Request" };
+      }
+    }
+  }
+);
+
+export const fetchLeadsbyDateRange: any = createAsyncThunk(
+  "admin/fetchLeadsbyDateRange",
+  async (data: any) => {
+    try {
+      const response = await api.post("/users/leadsbyDateRange", data);
+      if (response.status === 200) {
         return response.data;
       }
     } catch (error) {
@@ -21,11 +36,13 @@ export const fetchAllLeads: any = createAsyncThunk(
 export interface FetchAllLeads {
   loading: boolean;
   data: [];
+  leadsDateRange: [];
 }
 
 const initialState: FetchAllLeads = {
   loading: false,
   data: [],
+  leadsDateRange: [],
 };
 
 export const fetchAllLeadsSlice = createSlice({
@@ -44,6 +61,16 @@ export const fetchAllLeadsSlice = createSlice({
         state.loading = false;
       })
       .addCase(fetchAllLeads.rejected, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(fetchLeadsbyDateRange.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(fetchLeadsbyDateRange.fulfilled, (state, action) => {
+        state.leadsDateRange = action.payload.data;
+        state.loading = false;
+      })
+      .addCase(fetchLeadsbyDateRange.rejected, (state, action) => {
         state.loading = false;
       });
   },

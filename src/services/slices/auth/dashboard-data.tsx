@@ -1,9 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const getDashboardData: any = createAsyncThunk(
   "dashboard/getDashboardData",
-  async (data: any, { dispatch }) => {
+  async () => {
     try {
       const response = await http.get("/users/usersCountByDay");
       if (response.status === 200) {
@@ -13,22 +17,47 @@ export const getDashboardData: any = createAsyncThunk(
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
     }
   }
 );
 
-export const addSettingsData: any = createAsyncThunk(
-  "dashboard/addSettingsData",
-  async (data: any) => {
+export const getDashboardDatabyDateRange: any = createAsyncThunk(
+  "dashboard/getDashboardDatabyDateRange",
+  async (data: any, { dispatch }) => {
     try {
-      const response = await http.post("/standard/cron_manager", data);
+      const response = await http.get(
+        `/users/usersCountByDayRange?startDate=${data.startDate}&endDate=${data.endDate}`
+      );
       if (response.status === 200) {
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
+    }
+  }
+);
+
+export const addSettingsData: any = createAsyncThunk(
+  "dashboard/addSettingsData",
+  async (data: any, { dispatch }: any) => {
+    try {
+      const response = await http.post("/standard/cron_manager", data);
+      if (response.status === 200) {
+        dispatch(startLoadingActivity());
+        return response.data;
+      }
+    } catch (error) {
+      if (error.response && error.response.status === 400) {
+        return { error: "Bad Request" };
+      }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );
@@ -54,10 +83,10 @@ export const getScheduleCronUser: any = createAsyncThunk(
 export const stopCronSettings: any = createAsyncThunk(
   "dashboard/stopCronSettings",
   async (data, { dispatch }: any) => {
-    console.log("status ", data);
     try {
       const response = await http.post("/standard/cron_manager/stopCron");
       if (response.status === 200) {
+        dispatch(startLoadingActivity());
         dispatch(getScheduleCronUser());
         return response.data;
       }
@@ -65,6 +94,8 @@ export const stopCronSettings: any = createAsyncThunk(
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );
@@ -72,11 +103,10 @@ export const stopCronSettings: any = createAsyncThunk(
 export const scheduleCronSettings: any = createAsyncThunk(
   "dashboard/scheduleCronSettings",
   async (data, { dispatch }: any) => {
-    console.log("responsre 999999999999999999999999999999", data);
     try {
       const response = await http.post("/standard/cron_manager/schedulecron");
       if (response.status === 200) {
-        console.log("responsre 999999999999999999999999999999", response);
+        dispatch(startLoadingActivity());
         dispatch(getScheduleCronUser());
         return response.data;
       }
@@ -84,6 +114,8 @@ export const scheduleCronSettings: any = createAsyncThunk(
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );
@@ -108,6 +140,17 @@ export const dashboardSlice = createSlice({
         state.loading = false;
       })
       .addCase(getDashboardData.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(getDashboardDatabyDateRange.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(getDashboardDatabyDateRange.fulfilled, (state, action) => {
+        state.data = action.payload.data;
+        state.loading = false;
+      })
+      .addCase(getDashboardDatabyDateRange.rejected, (state, action) => {
         state.loading = false;
       })
 

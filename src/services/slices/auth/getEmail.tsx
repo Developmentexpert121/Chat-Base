@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const getEmail: any = createAsyncThunk(
   "auth/getEmail",
@@ -7,13 +11,15 @@ export const getEmail: any = createAsyncThunk(
     try {
       const response = await api.get(`users/getEmail/${token}`);
       if (response.status === 200) {
-        console.log(response);
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );

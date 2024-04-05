@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const userSignUp = createAsyncThunk(
   "auth/userSignUp",
@@ -11,18 +15,18 @@ export const userSignUp = createAsyncThunk(
       mobile: phone,
       password: data.password,
     };
-    console.log("toke", token);
     try {
-      console.log("dataaaa", newData);
       const response = await http.post(`/users/updateUser/${token}`, newData);
-      console.log(response);
       if (response.status === 200) {
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );

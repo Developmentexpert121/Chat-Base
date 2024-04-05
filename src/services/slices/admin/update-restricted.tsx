@@ -10,7 +10,6 @@ export const updateRestrictions: any = createAsyncThunk(
         data
       );
       if (response.status === 200) {
-        console.log(response);
         return response.data;
       }
     } catch (error) {

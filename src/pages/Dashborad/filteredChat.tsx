@@ -8,13 +8,10 @@ import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 
-import dayjs, { Dayjs } from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { getUsersConversation } from "../../services/slices/auth/users-conversation.tsx";
-import { useDispatch } from "react-redux";
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -25,55 +22,19 @@ const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   },
 }));
 
-const FilteredChat = ({ open, setOpen }: any) => {
-  const dispatch = useDispatch<any>();
-  const [value1, setValue1] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
-  const [value2, setValue2] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const filteredChatData = () => {
-    const startDate = value1 ? value1.toDate() : null;
-    const endDate = value2 ? value2.toDate() : null;
-
-    const year1 = startDate ? startDate.getFullYear() : null;
-    const month1 = startDate
-      ? (startDate.getMonth() + 1).toString().padStart(2, "0")
-      : null;
-    const day1 = startDate
-      ? startDate.getDate().toString().padStart(2, "0")
-      : null;
-
-    const year2 = endDate ? endDate.getFullYear() : null;
-    const month2 = endDate
-      ? (endDate.getMonth() + 1).toString().padStart(2, "0")
-      : null;
-    const day2 = endDate ? endDate.getDate().toString().padStart(2, "0") : null;
-
-    // Construct the formatted date string in the format 'YYYY-MM-DD'
-    const formattedStartDate = `${year1}-${month1}-${day1}`;
-    const formattedEndDate = `${year2}-${month2}-${day2}`;
-
-    console.log(formattedStartDate);
-    console.log(formattedEndDate);
-
-    const chatbotId = localStorage.getItem("chatbotId");
-    const data = {
-      chatbotId: chatbotId,
-      startDate: formattedStartDate,
-      endDate: formattedEndDate,
-      page: 1,
-      size: 20,
-    };
-    dispatch(getUsersConversation(data));
-    handleClose();
-  };
-
+const FilteredChat = ({
+  open,
+  setOpen,
+  value1,
+  setValue1,
+  value2,
+  setValue2,
+  filteredChatData,
+}: any) => {
   return (
     <React.Fragment>
       <BootstrapDialog
-        onClose={handleClose}
+        onClose={() => setOpen(false)}
         aria-labelledby="customized-dialog-title"
         open={open}
         PaperProps={{
@@ -88,7 +49,7 @@ const FilteredChat = ({ open, setOpen }: any) => {
         </DialogTitle>
         <IconButton
           aria-label="close"
-          onClick={handleClose}
+          onClick={() => setOpen(false)}
           sx={{
             position: "absolute",
             right: 8,

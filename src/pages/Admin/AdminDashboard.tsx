@@ -36,7 +36,6 @@ const AdminDashboard = () => {
 
   const handleChange = (event: any, index: any, id: any) => {
     const { value } = event.target;
-    console.log(value, id);
     dispatch(
       updateRestrictions({
         userId: id,
@@ -100,7 +99,6 @@ const AdminDashboard = () => {
             </TableHead>
             <TableBody>
               {data.map((order: any, index: any) => {
-                console.log(order.isRestricted);
                 return (
                   <TableRow hover key={index}>
                     <TableCell

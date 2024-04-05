@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import http from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const getUsersConversation = createAsyncThunk(
   "usersConversation/getUsersConversation",
@@ -7,12 +11,15 @@ export const getUsersConversation = createAsyncThunk(
     try {
       const response = await http.post("/users/getconversation", data);
       if (response.status === 200) {
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );

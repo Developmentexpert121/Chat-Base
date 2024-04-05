@@ -25,7 +25,6 @@ const ForgotPassword = () => {
   });
 
   const onSubmit = (data: any) => {
-    console.log(data);
     dispatch(forgotPassword(data))
       .unwrap()
       .then((response: any) => {

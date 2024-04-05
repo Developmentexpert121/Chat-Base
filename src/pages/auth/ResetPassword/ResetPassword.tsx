@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 
 const ResetPassword = () => {
   const params = useParams();
-  console.log("params ", params.token);
   const navigate = useNavigate();
   const dispatch: any = useDispatch();
 
@@ -38,8 +37,6 @@ const ResetPassword = () => {
       dispatch(resetPassword(newData))
         .unwrap()
         .then((response: any) => {
-          console.log("response", response);
-          console.log("response", response.success);
           if (response.success === true) {
             toast.success("Password updated successfully");
             navigate("/login");

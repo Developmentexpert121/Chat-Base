@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const resetPassword: any = createAsyncThunk(
   "auth/resetPassword",
@@ -9,13 +13,15 @@ export const resetPassword: any = createAsyncThunk(
         password: data.password,
       });
       if (response.status === 200) {
-        console.log(response);
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );

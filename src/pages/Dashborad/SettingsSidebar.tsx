@@ -78,7 +78,6 @@ const SettingsSidebar = () => {
       .unwrap()
       .then((res: any) => {
         const values = JSON.parse(res.data.values);
-        console.log("oooooooooooooooooooooooooooo", values);
         setValue("email", res.data.emailTo);
         setValue("hours", values.hours);
 
@@ -88,18 +87,13 @@ const SettingsSidebar = () => {
           selectedDaysObj[item] = true;
         });
         setValue("daysOfWeek", selectedDaysObj);
-
-        console.log("received response ", res);
       });
   }, [dispatch, setValue]);
-
-  console.log("watchhhhhhhhhhhhhh ", watch("daysOfWeek"));
 
   const croneUserData = useSelector(
     (state: any) => state.dashboardData.cronUser
   );
 
-  console.log("croneUserDatacroneUserData ", croneUserData);
   const daysOfWeek = [
     "Sunday",
     "Monday",
@@ -121,13 +115,12 @@ const SettingsSidebar = () => {
     };
     fetchData();
     // Set up an interval to call the API every 5 minutes
-    const interval = setInterval(fetchData, 5 * 60 * 1000); // 5 minutes in milliseconds
+    const interval = setInterval(fetchData, 60 * 60 * 1000); // 5 minutes in milliseconds
     // Clear the interval when the component unmounts
     return () => clearInterval(interval);
   };
 
   const onSubmit: any = (data: FormData) => {
-    console.log("dataaaaaaaaaaaaaa ", data);
     const indexedData = data.daysOfWeek
       .map((item: any, index: number) => (item === true ? index : ""))
       .filter((index: any) => index !== "");
@@ -140,8 +133,6 @@ const SettingsSidebar = () => {
       })
     );
   };
-
-  console.log("watchhhhhhhhhhhhhhhhhhhhhhhhh ", watch("daysOfWeek"));
 
   return (
     <Box sx={{ px: 4, py: 4 }} className="content-height">

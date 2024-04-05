@@ -7,7 +7,6 @@ export const inviteUser: any = createAsyncThunk(
     try {
       const response = await api.post("/users/invite", data);
       if (response.status === 200) {
-        console.log(response);
         return response.data;
       }
     } catch (error) {

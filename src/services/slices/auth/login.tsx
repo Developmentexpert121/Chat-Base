@@ -1,5 +1,9 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import api from "../../http/baseUrl.tsx";
+import {
+  startLoadingActivity,
+  stopLoadingActivity,
+} from "../activity/activitySlice.tsx";
 
 export const userLogin: any = createAsyncThunk(
   "auth/userLogin",
@@ -10,13 +14,15 @@ export const userLogin: any = createAsyncThunk(
         if (response.data.success === true) {
           localStorage?.setItem("token", response.data.token);
         }
-
+        dispatch(startLoadingActivity());
         return response.data;
       }
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
       }
+    } finally {
+      dispatch(stopLoadingActivity());
     }
   }
 );
