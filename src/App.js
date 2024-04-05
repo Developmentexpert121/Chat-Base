@@ -11,9 +11,11 @@ import Dashboard from "../src/pages/Dashborad/Dashboard.tsx";
 import Lead from "../src/pages/Dashborad/Lead.tsx";
 import ChatHistory from "./pages/Dashborad/ChatHistory.tsx";
 import SettingsSidebar from "./pages/Dashborad/SettingsSidebar.tsx";
-import { useSelector } from "react-redux";
 import { createTheme, ThemeProvider } from "@mui/material";
 import Spinner from "./services/loader/spinner.tsx";
+import { useEffect } from "react";
+import { checkAuth } from "./services/slices/auth/login.tsx";
+import { useSelector, useDispatch } from "react-redux";
 const theme = createTheme({
   typography: {
     fontFamily: "Poppins, sans-serif",
@@ -35,7 +37,16 @@ const App = () => {
     return token ? children : <Navigate to="/" replace={true} />;
   };
 
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(checkAuth());
+  }, [dispatch]);
+
+  const isAdminUser = useSelector((state) => state.login.isAdmin);
   const activityLoader = useSelector((state) => state.activityLoader.loading);
+
+  console.log("is admin ", isAdminUser);
   return (
     <div>
       {activityLoader ? (
@@ -92,7 +103,11 @@ const App = () => {
                 path="/admin/dashboard"
                 element={
                   <Aunthentication>
-                    <AdminDashboard />
+                    {isAdminUser ? (
+                      <AdminDashboard />
+                    ) : (
+                      <Navigate to="/dashboard" />
+                    )}
                   </Aunthentication>
                 }
               />

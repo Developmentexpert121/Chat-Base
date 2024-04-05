@@ -2,18 +2,26 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 export const startLoadingActivity: any = createAsyncThunk(
   "activity/startLoadingActivity",
-  async () => {}
+  async () => { }
 );
 
 export const stopLoadingActivity: any = createAsyncThunk(
   "activity/stopLoadingActivity",
-  async () => {}
+  async () => { }
+);
+
+export const collapsedSideBar: any = createAsyncThunk(
+  "activity/collapsedSideBar",
+  async (data) => {
+    return data;
+  }
 );
 
 export const activitySlice = createSlice({
   name: "activity",
   initialState: {
     loading: false,
+    collapsedSidebar: false
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -36,6 +44,17 @@ export const activitySlice = createSlice({
         state.loading = false;
       })
       .addCase(stopLoadingActivity.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(collapsedSideBar.pending, (state, action) => {
+        state.loading = false;
+      })
+      .addCase(collapsedSideBar.fulfilled, (state, action) => {
+        state.loading = false;
+        state.collapsedSidebar = !state.collapsedSidebar;
+      })
+      .addCase(collapsedSideBar.rejected, (state, action) => {
         state.loading = false;
       });
   },

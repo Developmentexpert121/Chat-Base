@@ -46,10 +46,10 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex w-full h-screen justify-center items-center">
-      <div className="p-8 w-[500px] h-[320px] flex flex-col justify-between items-center">
+    <div className="flex w-full h-screen justify-center items-center bg-gray-100">
+      <div className="p-8 w-[500px] flex flex-col justify-between items-center cs-shadow rounded-lg bg-white">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-4xl font-bold mb-4 w-[400px]">Reset Password</h2>
+          <h2 className="heading-h2 font-bold mb-6 w-[400px] text-center">Reset Password</h2>
           <div className=" font-medium text-gray-700">
             Enter your new password
           </div>
@@ -64,7 +64,7 @@ const ResetPassword = () => {
               type="password"
               id="password"
               {...register("password")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
@@ -83,7 +83,7 @@ const ResetPassword = () => {
               type="password"
               id="confirmPassword"
               {...register("confirmPassword")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.confirmPassword && (
               <p className="text-red-500 text-sm mt-1">
@@ -94,7 +94,7 @@ const ResetPassword = () => {
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-black text-white font-semibold px-4 py-2 mt-4 rounded-md focus:bg-white hover:border-2 border-black focus:outline-none focus:text-black"
+              className="btn-primary px-6 py-3 leading-tight mt-4"
             >
               Reset Password
             </button>

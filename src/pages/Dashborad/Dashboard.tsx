@@ -72,10 +72,8 @@ const Dashboard = () => {
 
   return (
     <Box
-      sx={{ flexGrow: 1, px: 4, py: 4 }}
-      className="p24px h-screen overflow-auto"
-    >
-      <div className="header-flex flex justify-between items-center cs-shadow">
+      sx={{ flexGrow: 1, px: 4, py: 4 }} className="p24px h-screen overflow-auto" >
+      <div className="header-flex page-header flex justify-between items-center cs-shadow">
         <div className="heading-h2 font-bold mb-0 header-col-left leading-tight">
           Dashboard
         </div>
@@ -93,8 +91,8 @@ const Dashboard = () => {
           >
             Pick Date
           </Button>
-          <div className="header-col-right ps-4">
-            <Header />
+          <div className="header-col-right ps-4 hide-900">
+            <Header setAuthUser={localStorage.getItem("token")}/>
           </div>
         </Grid>
       </div>

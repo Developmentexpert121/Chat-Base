@@ -24,6 +24,7 @@ const ChatHistory = () => {
   const [currentChatId, setCurrentChatId] = useState<any>(null);
   const [value1, setValue1] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
   const [value2, setValue2] = React.useState<Dayjs | null>(dayjs("2022-04-17"));
+  const [closeTab, setCloseTab] = useState<any>(false);
   const dispatch: any = useDispatch<any>();
 
   useEffect(() => {
@@ -85,6 +86,7 @@ const ChatHistory = () => {
     });
     setSelectedChat(filteredChat);
     setCurrentChatId(id);
+    setCloseTab(true);
   };
 
   const chat = conversationData?.data
@@ -100,8 +102,31 @@ const ChatHistory = () => {
     (state: any) => state.activityLoader.loading
   );
 
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function to remove the event listener when component unmounts
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  console.log(
+    "screenSize, setScreenSizescreenSize, setScreenSize ",
+    screenSize
+  );
   return (
-    <Box sx={{ px: 4, py: 4 }} className="content-height">
+    <Box sx={{ px: 4, py: 4 }} className="content-height chat-page-main">
       <Grid
         container
         spacing={3}
@@ -130,13 +155,70 @@ const ChatHistory = () => {
           >
             Pick Date
           </Button>
-          <div className="ms-3">
+          <div className="ms-3 hide-900">
             <Header setAuthUser={localStorage.getItem("token")} />
           </div>
         </Grid>
       </Grid>
       {activityLoader || chat === null ? (
         <Spinner />
+      ) : screenSize.width <= 900 ? (
+        <Card
+          className="cs-shadow cs-chatbox"
+          sx={{
+            borderColor: "grey",
+            borderWidth: 1,
+            display: "flex",
+            flexDirection: "row",
+            height: "calc(100% - 103px)",
+          }}
+        >
+          {!closeTab && (
+            <Box
+              className="cs-chatbox-left"
+              sx={{
+                flex: "30%",
+                overflowX: "auto",
+                height: "100%",
+              }}
+            >
+              <Table>
+                <TableBody>
+                  {chat &&
+                    chat.map((notification: any, index: any) => (
+                      <TableRow
+                        hover
+                        key={index}
+                        onClick={() => handleChatSelect(notification?.id)}
+                        className={
+                          currentChatId === notification.id
+                            ? "activeChat"
+                            : "commonChat"
+                        }
+                        sx={{ cursor: "pointer" }}
+                      >
+                        <TableCell>
+                          <div className="p-1 heading">{notification.name}</div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+            </Box>
+          )}
+          {closeTab && (
+            <Box sx={{ flex: "70%" }} className="cs-chatbox-right">
+              {conversationData?.data?.length > 0 && (
+                <ChatPage
+                  selectedChat={selectedChat}
+                  closeTab={closeTab}
+                  setCloseTab={setCloseTab}
+                  width={screenSize.width}
+                />
+              )}
+            </Box>
+          )}
+        </Card>
       ) : (
         <Card
           className="cs-shadow cs-chatbox"
@@ -179,9 +261,15 @@ const ChatHistory = () => {
               </TableBody>
             </Table>
           </Box>
+
           <Box sx={{ flex: "70%" }} className="cs-chatbox-right">
             {conversationData?.data?.length > 0 && (
-              <ChatPage selectedChat={selectedChat} />
+              <ChatPage
+                selectedChat={selectedChat}
+                closeTab={closeTab}
+                setCloseTab={setCloseTab}
+                width={screenSize.width}
+              />
             )}
           </Box>
         </Card>

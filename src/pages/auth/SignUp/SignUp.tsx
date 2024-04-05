@@ -71,13 +71,13 @@ const SignUp = () => {
   };
 
   return (
-    <div className="flex w-full h-screen justify-center items-center">
+    <div className="flex w-full h-screen justify-center items-center bg-gray-100">
       <div
         style={{ boxShadow: "0px 0px 10px #000" }}
-        className="p-8 w-[500px] h-[700px] flex flex-col justify-between items-center"
+        className="p-8 w-[500px] flex flex-col justify-between items-center cs-shadow rounded-lg bg-white"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-4xl font-bold mb-6 w-[400px]">SignUp Here</h2>
+          <h2 className="heading-h2 font-bold mb-6 w-[400px] text-center">SignUp Here</h2>
           <div className="mb-4">
             <label
               htmlFor="firstName"
@@ -89,7 +89,7 @@ const SignUp = () => {
               type="text"
               id="firstName"
               {...register("firstName")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.firstName && (
               <p className="text-red-500 text-sm mt-1">
@@ -108,7 +108,7 @@ const SignUp = () => {
               type="text"
               id="lastName"
               {...register("lastName")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.lastName && (
               <p className="text-red-500 text-sm mt-1">
@@ -129,15 +129,16 @@ const SignUp = () => {
               value={phone}
               onChange={(phone) => setPhone(phone)}
               inputStyle={{
-                paddingTop: 12,
-                paddingBottom: 12,
+                paddingTop: 8,
+                paddingBottom: 8,
                 width: "100%",
                 border: 0,
                 boxShadow: "none",
                 color: "black",
+                background: '#e5e7eb',
               }}
               containerStyle={{
-                borderBottom: "2px solid",
+                borderBottom: "1px solid #e5e7eb",
               }}
               inputProps={{
                 id: "mobile",
@@ -163,13 +164,13 @@ const SignUp = () => {
               id="email"
               value={email}
               disabled
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             /> */}
             <TextField
               disabled
               value={email}
               variant="filled"
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className=" email-field mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {/* {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -188,7 +189,7 @@ const SignUp = () => {
               type="password"
               id="password"
               {...register("password")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
@@ -217,7 +218,7 @@ const SignUp = () => {
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-black text-white font-semibold px-4 py-2 rounded-md focus:bg-white hover:border-2 border-black focus:outline-none focus:text-black"
+              className="btn-primary px-6 py-3 leading-tight mt-4"
             >
               Sign-Up
             </button>

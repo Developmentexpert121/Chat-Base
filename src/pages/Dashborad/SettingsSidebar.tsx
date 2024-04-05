@@ -17,6 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import Checkbox from "@mui/material/Checkbox";
+import Header from "../../components/Header/Header.tsx";
 import {
   addSettingsData,
   getScheduleCronUser,
@@ -32,7 +33,7 @@ import * as yup from "yup";
 
 const schema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
-  hours: yup.string().required("Hours is required"),
+  hours: yup.array().required("Hours is required"),
   daysOfWeek: yup
     .array()
     .of(yup.boolean())
@@ -47,13 +48,13 @@ const schema = yup.object().shape({
 
 const defaultValues = {
   email: "",
-  hours: "",
+  hours: [],
   daysOfWeek: [],
 };
 
 interface FormData {
   email: string;
-  hours: string;
+  hours: any;
   daysOfWeek: any;
 }
 
@@ -135,33 +136,37 @@ const SettingsSidebar = () => {
   };
 
   return (
-    <Box sx={{ px: 4, py: 4 }} className="content-height">
-      <Grid container spacing={3} className="mb-3">
+    <Box sx={{ px: 4, py: 4 }} className="content-height p24px">
+      <Grid container spacing={0} className="header-flex page-header flex justify-between items-center cs-shadow">
         <Grid item xs={6}>
           <Typography
             variant="h2"
             gutterBottom
-            className="heading-h2 font-bold mb-0"
-          >
+            className="heading-h2 font-bold mb-0 header-col-left leading-tight">
             Settings
           </Typography>
+
         </Grid>
         <Grid
           item
           xs={6}
-          sx={{ display: "flex", justifyContent: "flex-end" }}
-        ></Grid>
+          sx={{ display: "flex", justifyContent: "flex-end" }} className="header-col-right"
+        >
+          <div className=" ps-4 hide-900">
+            <Header setAuthUser={localStorage.getItem("token")} />
+          </div>
+        </Grid>
       </Grid>
 
       <Card
         sx={{
-          boxShadow: 2,
           borderColor: "grey",
-          borderWidth: 1,
+          borderWidth: 0,
           display: "flex",
           flexDirection: "row",
           height: "90%",
         }}
+        className="cs-shadow p24px"
       >
         <Box sx={{ flex: "100%" }}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -196,22 +201,22 @@ const SettingsSidebar = () => {
                 </Select>
               </FormControl>
             </Grid> */}
-              <Grid item xs={4}>
-                <Typography variant="h6" gutterBottom sx={{ mt: 1, ml: 4 }}>
+              <Grid item sm={6} xs={12}>
+                <Typography variant="h6" gutterBottom sx={{ mt: 0, ml: 0 }}>
                   Select Hours
                 </Typography>
-
                 <Controller
                   name="hours"
                   control={control}
-                  defaultValue=""
+                  defaultValue={[]}
                   render={({ field }) => (
-                    <FormControl sx={{ ml: 4, minWidth: 300 }}>
+                    <FormControl sx={{ width: '100%' }}>
                       <InputLabel id="demo-controlled-open-select-label">
                         Hours
                       </InputLabel>
                       <Select
                         {...field}
+                        multiple
                         labelId="demo-controlled-open-select-label"
                         id="demo-controlled-open-select"
                         open={open}
@@ -219,6 +224,11 @@ const SettingsSidebar = () => {
                         onOpen={() => setOpen(true)}
                         label="Hours"
                         error={!!errors.hours}
+                        value={Array.isArray(field.value) ? field.value : []} // Ensure value is an array
+                        onChange={(event) => {
+                          const { value } = event.target;
+                          field.onChange(value); // Update the field value
+                        }}
                       >
                         <MenuItem value="">
                           <em>None</em>
@@ -239,12 +249,12 @@ const SettingsSidebar = () => {
                 />
               </Grid>
 
-              <Grid item xs={4}>
-                <Typography variant="h6" gutterBottom sx={{ mt: 1, ml: 4 }}>
+              <Grid item sm={6} xs={12}>
+                <Typography variant="h6" gutterBottom sx={{ mt: 0, ml: 0 }}>
                   Email
                 </Typography>
 
-                <FormControl sx={{ ml: 4, minWidth: 300 }}>
+                <FormControl sx={{ width: '100%' }}>
                   <Controller
                     name="email"
                     control={control}
@@ -262,7 +272,7 @@ const SettingsSidebar = () => {
               </Grid>
             </Grid>
 
-            <Typography variant="h6" gutterBottom sx={{ mt: 1, ml: 4 }}>
+            <Typography variant="h6" gutterBottom sx={{ mt: 0, ml: 0 }} className="pt-4">
               Select Days
             </Typography>
             {/* <Grid container spacing={2} sx={{ ml: 1 }}>
@@ -278,9 +288,9 @@ const SettingsSidebar = () => {
             ))}
           </Grid> */}
 
-            <Grid container spacing={2} sx={{ ml: 1 }}>
+            <Grid container spacing={1} sx={{}} className="">
               {daysOfWeek.map((day: any, index: number) => (
-                <Grid item xs={4} key={index}>
+                <Grid item sm={4} xs={6} key={index}>
                   <FormControl
                     component="fieldset"
                     error={!!errors.daysOfWeek?.root}
@@ -313,14 +323,15 @@ const SettingsSidebar = () => {
               ))}
             </Grid>
 
-            <Grid container spacing={2} sx={{ mt: 2, ml: 2 }}>
-              <Grid item xs={8}>
+            <Grid container spacing={2} sx={{ mt: 0, ml: 0 }}>
+              <Grid item xs={8} className="pl-0">
                 <Button
                   variant="contained"
                   color="success"
                   sx={{ width: 150 }}
                   // onClick={() => handleSaveData()}
                   type="submit"
+                  className="btn-primary"
                 >
                   Save
                 </Button>
@@ -328,13 +339,13 @@ const SettingsSidebar = () => {
               <Grid
                 item
                 xs={4}
-                sx={{ display: "flex", justifyContent: "flex-center" }}
+                sx={{ display: "flex", justifyContent: "flex-end", pr: 2 }}
               >
                 {croneUserData.status === 0 ? (
                   <Button
                     variant="contained"
                     color="success"
-                    sx={{ width: 150, mr: 4 }}
+                    sx={{ width: 150, }}
                     onClick={() => handleStartCron()}
                   >
                     Start

@@ -9,17 +9,30 @@ import {
   Popover,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React,  { useState } from "react";
 import { GearSix as GearSixIcon } from "@phosphor-icons/react/dist/ssr/GearSix";
 import { SignOut as SignOutIcon } from "@phosphor-icons/react/dist/ssr/SignOut";
 import { User as UserIcon } from "@phosphor-icons/react/dist/ssr/User";
 import { useNavigate } from "react-router-dom";
+import MenuOpenIcon from "@mui/icons-material/MenuOpen";
+import MenuIcon from "@mui/icons-material/Menu";
+import { useDispatch, useSelector } from "react-redux";
+import { collapsedSideBar } from "../../services/slices/activity/activitySlice.tsx";
 
 const Header = ({ setAuthUser }) => {
+  const dispatch = useDispatch<any>();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<HTMLButtonElement | null>(
     null
   );
+  const [collapsed, setCollapsed] = useState(false);
+
+  const isAdmin = useSelector((state: any) => state.login.isAdmin);
+  const toggleCollapse = () => {
+    console.log("hiiii")
+    dispatch(collapsedSideBar(true));
+    setCollapsed(!collapsed);
+  };
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -48,7 +61,19 @@ const Header = ({ setAuthUser }) => {
       }}
       // className="px-6 py-4 shadow-right bg-white"
     >
-      <div></div>
+      <div className="menu-ham-header">
+      <IconButton
+          sx={{ marginY: collapsed ? 2 : "" }}
+          onClick={toggleCollapse}
+          className="cs-menu-toggle"
+        >
+          {collapsed ? (
+            <MenuIcon className="" />
+          ) : (
+            <MenuOpenIcon className="text-black" />
+          )}
+        </IconButton>
+      </div>
       <div className="flex items-center gap-4">
         <IconButton onClick={handleClick}>
           <Avatar
@@ -82,18 +107,12 @@ const Header = ({ setAuthUser }) => {
             disablePadding
             sx={{ p: "8px", "& .MuiMenuItem-root": { borderRadius: 1 } }}
           >
-            <MenuItem>
-              <ListItemIcon>
-                <GearSixIcon fontSize="var(--icon-fontSize-md)" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
-            <MenuItem>
+            {/* <MenuItem>
               <ListItemIcon>
                 <UserIcon fontSize="var(--icon-fontSize-md)" />
               </ListItemIcon>
               Profile
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <SignOutIcon fontSize="var(--icon-fontSize-md)" />

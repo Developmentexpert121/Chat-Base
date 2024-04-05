@@ -8,9 +8,10 @@ import {
 } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import SendIcon from "@mui/icons-material/Send";
 
-const ChatPage = ({ selectedChat }) => {
+const ChatPage = ({ selectedChat, closeTab, setCloseTab, width }:any) => {
   const chatRef: any = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [loadedMessages, setLoadedMessages] = useState(11);
@@ -40,8 +41,10 @@ const ChatPage = ({ selectedChat }) => {
         <Box sx={{ height: "100%", display: "flex", flexDirection: "column" }}>
           <Box className="py-3 flex justify-between items-center border-b-2 px-6 bg-white shadow">
             <Box className="flex justify-between items-center gap-4 text-2xl font-bold">
+              {closeTab && width<900 && <button onClick={()=>setCloseTab(false)}><ArrowBackIcon /> back</button>}
               <Avatar />
               {selectedChat ? selectedChat?.name : "Header"}
+              
             </Box>
             <IconButton sx={{ color: "black" }}>
               <MoreVertIcon />

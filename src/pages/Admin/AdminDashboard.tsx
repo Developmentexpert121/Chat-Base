@@ -8,6 +8,7 @@ import {
   DialogContentText,
   DialogTitle,
   FormControl,
+  Grid,
   MenuItem,
   Select,
   Table,
@@ -25,6 +26,7 @@ import { fetchAllUsers } from "../../services/slices/admin/all-users.tsx";
 import { inviteUser } from "../../services/slices/admin/invite-user.tsx";
 import toast from "react-hot-toast";
 import { updateRestrictions } from "../../services/slices/admin/update-restricted.tsx";
+import Header from "../../components/Header/Header.tsx";
 
 const AdminDashboard = () => {
   const dispatch: any = useDispatch();
@@ -61,40 +63,54 @@ const AdminDashboard = () => {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, px: 8, py: 1 }}>
-      <div className="text-5xl text-white font-bold mb-6">All Users</div>
-      <Box className="flex justify-end mr-2 mb-2">
-        <Button
-          variant="contained"
-          onClick={handleClickOpenDialog}
-          sx={{
-            backgroundColor: "#E16349",
-            "&:hover": {
+    <Box sx={{ flexGrow: 1, px: 4, py: 4 }} className="p24px">
+        <div className="header-flex page-header flex justify-between items-center cs-shadow">
+          <div className="heading-h2 font-bold mb-0 header-col-left leading-tight">
+            All Users
+          </div>
+          <Grid
+            item
+            xs={6}
+            sx={{ display: "flex", justifyContent: "flex-end" }}
+            className="header-col-right"
+          >
+            <Button
+            variant="contained"
+            onClick={handleClickOpenDialog}
+            className="btn-primary text-nowrap"
+            sx={{
               backgroundColor: "#E16349",
-            },
-          }}
-          startIcon={<PersonAddIcon />}
-        >
-          Invite user
-        </Button>
-      </Box>
+              "&:hover": {
+                backgroundColor: "#E16349",
+              },
+            }}
+            startIcon={<PersonAddIcon />}
+          >
+            Invite user
+          </Button>
+            <div className="header-col-right ps-4 hide-900">
+              <Header setAuthUser={localStorage.getItem("token")}/>
+            </div>
+          </Grid>
+      </div>
+      {/* <div className="text-5xl text-white font-bold mb-6">All Users</div> */}
 
       <Card
         sx={{
-          boxShadow: 2,
           borderColor: "grey",
-          borderWidth: 1,
+          borderWidth: 0,
         }}
+        className="cs-shadow"
       >
         <Box sx={{ overflowX: "auto" }}>
           <Table sx={{ minWidth: 800 }}>
             <TableHead>
-              <TableRow className="bg-gray-100">
-                <TableCell className="heading">Name</TableCell>
-                <TableCell className="heading">Email</TableCell>
-                <TableCell className="heading">Phone</TableCell>
-                <TableCell className="heading">Submitted At</TableCell>
-                <TableCell className="heading">Account Status</TableCell>
+              <TableRow className="cs-table-bg-gradient">
+                <TableCell className="heading text-nowrap text-white">Name</TableCell>
+                <TableCell className="heading text-nowrap text-white">Email</TableCell>
+                <TableCell className="heading text-nowrap text-white">Phone</TableCell>
+                <TableCell className="heading text-nowrap text-white">Submitted At</TableCell>
+                <TableCell className="heading text-nowrap text-white">Account Status</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

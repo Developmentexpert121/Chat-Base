@@ -100,7 +100,10 @@ body .header-flex {
 .ca-table {
   border: 0 !important;
 }
-body .MuiDataGrid-columnHeaders > div[role="row"] {
+.cs-table-bg-gradient > th {
+  color: #fff;
+}
+body .MuiDataGrid-columnHeaders > div[role="row"], .cs-table-bg-gradient {
   background-image: linear-gradient(45deg, #AD1DEB, #6E72FC) !important;
   color: #fff;
   border-radius: 10px 10px 0 0 !important;
@@ -113,6 +116,9 @@ body .MuiDataGrid-columnHeaders > div[role="row"] {
 }
 .p24px {
   padding: 24px !important;
+}
+.px-24px {
+  padding-inline: 24px !important;
 }
 .activeChat {
   background: #ad1deb !important;
@@ -128,23 +134,92 @@ body .MuiDataGrid-columnHeaders > div[role="row"] {
 .commonChat:hover td.MuiTableCell-root, .activeChat td.MuiTableCell-root {
   color: #fff !important;
 }
-
+.header-topbar {
+  padding-top: 24px;
+}
+.header-topbar-inner {
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+}
+.page-header .menu-ham-header {
+  display: none;
+}
+.pl-0 {
+  padding-left: 0 !important;
+}
+.header-col-right .menu-ham-header {
+  display: none;
+}
+body .email-field input.MuiInputBase-input {
+  background: rgb(229 231 235 / var(--tw-bg-opacity));
+  padding: .5rem;
+  border-radius: .5rem !important;
+  border: 0 !important;
+}
+body .email-field .MuiInputBase-root.MuiFilledInput-root:before, body .email-field .MuiInputBase-root.MuiFilledInput-root:after {
+  display: none;
+}
+body .email-field .MuiInputBase-root.MuiFilledInput-root {
+  background-color: transparent;
+}
 @media (min-width: 901px) {
   .mobile-opened-menu .mobile-w-0 {
     width: 0;
     visibility: hidden;
   }
+  .header-topbar {
+    display: none;
+  }
 }
 @media (max-width: 900.98px) {
-  .mobile-closed-menu .mobile-w-0 {
+  /* .mobile-closed-menu .mobile-w-0 {
     width: 0;
     overflow: hidden;
-  }
-  .mobile-closed-menu {
-    width: 64px !important;
-  }
-  .mobile-opened-menu {
-    width: 280px !important;
+  } */
+  .header-col-right .menu-ham-header {
+    display: none;
+}
+
+.sidebar-menuu {
+  width: 280px !important;
+  position: relative;
+  margin-left: -280px;
+  transition: all .3s ease;
+  box-shadow: none !important;
+}
+ .sidebar-menuu.new-status-bar {
+    margin-left: 0px;
+}
+.sidebar-menuu.new-status-bar .mobile-w-0 {
+  width: auto;
+    overflow: auto;
+}
+.hide-900 {
+  display: none !important;
+}
+/* .sidebar-menuu {
+  position: fixed;
+  left: -300px;
+  top: 0;
+  z-index: 999;
+}
+.sidebar-menuu.new-status-bar {
+  left: 0px;
+} */
+.sidebar-menuu.new-status-bar {
+  animation: slidemenuon 0.3s linear alternate;
+}
+@keyframes slidemenuon {
+  0% { margin-left: -280px; }
+  100% { margin-left: 0px ; }
+}
+.sidebar-menuu {
+  animation: slidemenuon2 0.3s linear alternate;
+}
+@keyframes slidemenuon2 {
+  100% { margin-left: -280px; }
+  0% { margin-left: 0px ; }
 }
 }
 
@@ -152,11 +227,23 @@ body .MuiDataGrid-columnHeaders > div[role="row"] {
   .header-col-left {
     width: calc(100% - 60px);
 }
+body .header-flex > .header-col-right {
+  padding-left: 0 ;
 }
-@media (max-width: 599.98px) {
-.heading-h2 {
-  font-size: 26px !important;
-  font-weight: 600 !important;
+.content-right {
+  min-width: 350px;
+}
+.main-outerr {
+  overflow-x: hidden;
+}
+.sidebar-menuu {
+  width: 240px !important;
+  min-width: 240px;
+  position: relative;
+  margin-left: -240px;
+}
+.sidebar-menuu.new-status-bar {
+  margin-left: 0px;
 }
 .cs-chathis-header .header-col-left, .cs-chathis-header .header-col-right {
   width: 100%;
@@ -170,4 +257,28 @@ body .MuiDataGrid-columnHeaders > div[role="row"] {
   padding-left: 0;
   justify-content: space-between;
 }
+.chat-page-main .cs-chatbox {
+  height: calc(100vh - 300px);
+}
+.sidebar-menuu.new-status-bar {
+  animation: slidemenuon 0.3s linear alternate;
+}
+@keyframes slidemenuon {
+  0% { margin-left: -240px; }
+  100% { margin-left: 0px ; }
+}
+.sidebar-menuu {
+  animation: slidemenuon2 0.3s linear alternate;
+}
+@keyframes slidemenuon2 {
+  100% { margin-left: -240px; }
+  0% { margin-left: 0px ; }
+}
+}
+@media (max-width: 599.98px) {
+.heading-h2 {
+  font-size: 26px !important;
+  font-weight: 600 !important;
+}
+
 }

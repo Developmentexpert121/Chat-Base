@@ -10,13 +10,12 @@ export const userLogin: any = createAsyncThunk(
   async (data, { dispatch }) => {
     try {
       const response: any = await api.post("/auth", data);
-      if (response.status === 200) {
-        if (response.data.success === true) {
-          localStorage?.setItem("token", response.data.token);
-        }
+      if (response.data.success === true) {
+        localStorage?.setItem("token", response.data.token);
         dispatch(startLoadingActivity());
-        return response.data;
+        //  localStorage?.setItem("isAdmin", response.data.t);
       }
+      return response.data;
     } catch (error) {
       if (error.response && error.response.status === 400) {
         return { error: "Bad Request" };
@@ -26,6 +25,19 @@ export const userLogin: any = createAsyncThunk(
     }
   }
 );
+
+export const checkAuth: any = createAsyncThunk("auth/checkAuth", async () => {
+  try {
+    const response: any = await api.get("/auth/check-token");
+    if (response.data.success === true) {
+      return response.data;
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 400) {
+      return { error: "Bad Request" };
+    }
+  }
+});
 
 export interface Login {
   loading: boolean;
@@ -49,10 +61,21 @@ export const loginSlice = createSlice({
       })
       .addCase(userLogin.fulfilled, (state, action) => {
         // state.data.agentUser=action.payload;
-        state.isAdmin = action.payload.isAdmin;
+        state.isAdmin = action?.payload?.isAdmin;
         state.loading = false;
       })
       .addCase(userLogin.rejected, (state, action) => {
+        state.loading = false;
+      })
+
+      .addCase(checkAuth.pending, (state, action) => {
+        state.loading = true;
+      })
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        state.isAdmin = action?.payload?.user?.isAdmin;
+        state.loading = false;
+      })
+      .addCase(checkAuth.rejected, (state, action) => {
         state.loading = false;
       });
   },

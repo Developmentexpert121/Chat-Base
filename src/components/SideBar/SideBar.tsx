@@ -53,6 +53,7 @@ const SideBar = () => {
       },
     ];
   }
+  const storeSidebar = useSelector((state:any)=> state.activityLoader.collapsedSidebar);
 
   return (
     <div
@@ -61,10 +62,7 @@ const SideBar = () => {
         minHeight: "100vh",
         transition: "width 0.3s ease",
       }}
-      className={
-        "bg-black shadow-right2 sidebar-menuu" +
-        (collapsed ? " mobile-opened-menu" : " mobile-closed-menu")
-      }
+      className={`bg-black shadow-right2 sidebar-menuu ${collapsed ? "mobile-opened-menu" : "mobile-closed-menu"} ${storeSidebar ? "new-status-bar":""}`}
     >
       <div className="flex justify-between px-3 items-center">
         {
@@ -79,17 +77,19 @@ const SideBar = () => {
             )}
           </div>
         }
+        <div className="hide-900">
         <IconButton
           sx={{ marginY: collapsed ? 2 : "" }}
           onClick={toggleCollapse}
           className="cs-menu-toggle"
         >
           {collapsed ? (
-            <MenuIcon className="" />
+            <MenuIcon className="" /> 
           ) : (
             <MenuOpenIcon className="text-black" />
           )}
         </IconButton>
+        </div>
       </div>
 
       <Box component="nav" sx={{ flex: "1 1 auto", p: "12px" }}>

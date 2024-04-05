@@ -25,16 +25,16 @@ const Login = () => {
     resolver: yupResolver(schema),
   });
 
-  const onSubmit = (data: any) => {
-    dispatch(userLogin(data))
-      .unwrap()
-      .then((response: any) => {
-        if (response.isRestricted === true) {
+  const onSubmit:any = (data: any) => {
+    console.log("datadatadata ", data)
+    dispatch(userLogin(data)).unwrap().then((response: any) => {
+        console.log("2222222222222222222222 ", response);
+        localStorage?.setItem("token", response.data.token);
+        localStorage.setItem("chatbotId", response.data.user.chatbotId);
+        if (response?.isRestricted === true) {
           toast.error("You are restricted to enter the site");
         } else {
-          localStorage.setItem("chatbotId", response.data.user.chatbotId);
-          localStorage.setItem("token", response.data.token);
-          response.success === true && response.isAdmin === 1
+          (response?.success === true && response?.isAdmin === 1)
             ? navigate("/admin/dashboard")
             : navigate("/dashboard");
           // window.location.reload();
@@ -43,13 +43,13 @@ const Login = () => {
   };
 
   return (
-    <div className="flex w-full h-screen justify-center items-center">
+    <div className="flex w-full h-screen justify-center items-center bg-gray-100">
       <div
-        className="p-8 w-[500px] h-[410px] flex flex-col justify-between items-center"
+        className="p-8 w-[500px] flex flex-col justify-between items-center cs-shadow rounded-lg bg-white"
         style={{ boxShadow: "0px 0px 10px #000" }}
       >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <h2 className="text-4xl font-bold mb-6 w-[400px]">Login Here</h2>
+          <h2 className="heading-h2 font-bold mb-6 w-[400px] text-center">Login Here</h2>
 
           <div className="mb-4">
             <label
@@ -62,7 +62,7 @@ const Login = () => {
               type="email"
               id="email"
               {...register("email")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.email && (
               <p className="text-red-500 text-sm mt-1">
@@ -82,7 +82,7 @@ const Login = () => {
               type="password"
               id="password"
               {...register("password")}
-              className="mt-1 p-2 block w-full border-black border-b-2 hover:border-b-4 focus:outline-none focus:border-b-4"
+              className="mt-1 p-2 block w-full border-black border-b-1 hover:border-b-1 focus:outline-none focus:border-b-1 rounded-lg bg-gray-200"
             />
             {errors.password && (
               <p className="text-red-500 text-sm mt-1">
@@ -91,7 +91,7 @@ const Login = () => {
             )}
           </div>
           <div
-            className="text-sm font-medium text-black hover:underline hover:cursor-pointer"
+            className="text-sm font-medium text-black hover:underline hover:cursor-pointer text-end"
             onClick={() => navigate("/forgot-password")}
           >
             Forgot password?
@@ -99,7 +99,7 @@ const Login = () => {
           <div className="flex justify-center items-center">
             <button
               type="submit"
-              className="bg-black text-white font-semibold px-4 py-2 mt-4 rounded-md focus:bg-white hover:border-2 border-black focus:outline-none focus:text-black"
+              className="btn-primary px-6 py-3 leading-tight mt-4"
             >
               Login
             </button>

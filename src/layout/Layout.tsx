@@ -24,7 +24,7 @@ const Layout = ({ children }) => {
     );
   };
   return authUser !== null ? (
-    <Box className="bg-gray-100 text-black">
+    <Box className="bg-gray-100 text-black main-outerr">
       <Box
         sx={{
           display: "flex",
@@ -42,7 +42,11 @@ const Layout = ({ children }) => {
           }}
           className="content-right"
         >
-          {/* {authUser && isAllowedRoute() && <Header setAuthUser={setAuthUser} />} */}
+          <div className="header-topbar px-24px">
+            <div className="header-topbar-inner cs-shadow">
+              {authUser && isAllowedRoute() && <Header setAuthUser={setAuthUser} />}
+            </div>
+          </div>
           {children}
         </Box>
       </Box>
